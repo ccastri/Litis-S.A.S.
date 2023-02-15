@@ -1,91 +1,54 @@
-import Image from 'next/image'
+import {
+  MenuIcon
+} from '@heroicons/react/outline'
 import { Inter } from '@next/font/google'
-import styles from './page.module.css'
+import Image from 'next/image'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
+    <div className='w-full h-screen'>
+      {/* {Header} */}
+      <div className='text-white text-xl bg-[#B5A15B]  flex w-full justify-between items-center my-auto py-5 h-16'>
+        <MenuIcon className='h-6   mx-8 
+        transition duration-100
+                        transform hover:scale-125
+                                hover:text-white' />
         <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-        <div className={styles.thirteen}>
-          <Image src="/thirteen.svg" alt="13" width={40} height={31} priority />
-        </div>
+          src='/LOGO-LITIS-removebg.png'
+          width={100}
+          height={100}
+          className='mr-4 transition duration-100
+                        transform hover:scale-125
+                                '
+          object-fit='cover'
+          alt=''/>
+        {/* <p className="px-8 text-sm text-center font-bold font-OpenSans ">
+          LITIS DE COLOMBIA S.A.S 
+        </p> */}
       </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+      <div className='w-full h-60 absolute '>
+            <Image
+            className=' '
+              src='/family-home.png'
+              alt='family home'
+              object-fit='cover'
+              fill
+            />
       </div>
-    </main>
+          <div className='px-2  text-white flex flex-col w-full items-center text-center mt-60 h-30 bg-gradient-to-b from-[#776C44] to-[#BF9A16] mb-2'>
+          <h3 className='text-xs pt-2'>Sabemos que tu familia y tu salud son los más importante</h3>
+          <h3 className='text-md font-bold'>¡Más aun en tu trabajo!</h3>
+          <button             className='transition duration-100
+                        transform hover:scale-125
+                                hover:text-white bg-gradient-to-b from-[#BF9A16] to-[#B5A15B]   text-white font-bold rounded-md mt-2 py-2 px-3 mb-2  border 10px-solid-white'> Comenzar </button>
+          </div>
+          <div className='flex justify-center border 1px-solid-white  
+                        '>
+<p>Mor mañana sacamos los paquetes y el login, hagale?</p>
+          </div>
+
+    </div>
   )
 }
