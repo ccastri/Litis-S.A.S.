@@ -2,7 +2,8 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 module.exports = {
   content: [
-    "./src/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+    "./pages/auth/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
@@ -12,5 +13,11 @@ module.exports = {
     },
 
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms')({
+      strategy: 'base', // only generate global styles
+      strategy: 'class',
+    }),
+    // require('tailwind-scrollbar'),
+  ],
 }
