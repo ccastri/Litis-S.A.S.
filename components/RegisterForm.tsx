@@ -6,9 +6,24 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Header from './Header';
 
-
+export interface User {
+    // id: number,
+        firstName:string,
+        lastName:string,
+        dateOfBirth: Date,
+        email:string,
+        password:string,
+        confirmPassword:string,
+        city:string,
+        department:string,
+        state:string,
+        idCardNumber:string,
+        idCardFile: File,
+        dateOfExpedition:Date,
+    
+}
 const RegisterForm = () => {
-    const [user, setUser] = useState({
+    const [user, setUser] = useState<User>({
         firstName:"",
         lastName:"",
         dateOfBirth: new Date(),
@@ -16,13 +31,31 @@ const RegisterForm = () => {
         password:"",
         confirmPassword:"",
         city:"",
+        department:"",
         state:"",
-        idCard: "",
-        dateOfExpedition:"",
+        idCardNumber:"",
+        idCardFile: [],
+        dateOfExpedition: new Date(),
     })
-console.log(user.dateOfBirth)
-    const handleSubmit = (e: FormEvent<HTMLInputElement>) => {
-        e.preventDefault
+// console.log(user)
+const handleChange = (e: ChangeEvent<HTMLInputElement> ) =>{
+const {name, value} = e.currentTarget 
+  setUser({...user, [name]:value})
+}
+
+const handleSelect = (e: ChangeEvent<HTMLSelectElement>) =>{
+   e.preventDefault
+   const {name, value} = e.currentTarget
+   setUser({...user, [name]:value})
+}
+
+const handleUploadFile = (e:  ChangeEvent<HTMLInputElement>) =>{
+  setUser({...user, idCardFile:e.currentTarget.files[0]})
+
+}
+    const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
+      e.preventDefault()
+        console.log(user)
     }
   return (
     <>
@@ -48,15 +81,19 @@ console.log(user.dateOfBirth)
           object-fit='contain'
           alt=''/>
           </div>
-     <form className="w-full max-w-lg ">
+     <form 
+     onSubmit={handleSubmit}
+     className="w-full max-w-lg ">
   <div className="flex flex-wrap -mx-3 mb-6">
     <div className="transition duration-100
                         transform hover:scale-105 w-full  md:w-1/2 px-3 mb-6 md:mb-0 ">
       <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2 " htmlFor="grid-first-name">
         Nombres
       </label>
-      <input 
-      onChange={(text:FormEvent<HTMLInputElement>) => (setUser({...user, firstName:text.currentTarget.value}))}
+      <input
+      name='firstName'
+      value={user.firstName}
+      onChange={handleChange}
       className="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Jane"/>
       <p className="text-red-500 text-xs italic">Please fill out this field.</p>
     </div>
@@ -66,10 +103,12 @@ console.log(user.dateOfBirth)
         Apellidos
       </label>
       <input 
-      onChange={(text:FormEvent<HTMLInputElement>) => (setUser({...user, lastName:text.currentTarget.value}))}
+       name='lastName'
+      value={user.lastName}
+      onChange={handleChange}
       className="transition duration-100
                         transform hover:scale-105
-      appearance-none block w-full bg-gray-200 text-white border border-white rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe"/>
+      appearance-none block w-full bg-gray-200 text-gray-700 border border-white rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe"/>
     </div>
     
  <div className='px-3 mt-4 md:mb-0 transition duration-100
@@ -92,8 +131,10 @@ console.log(user.dateOfBirth)
         Email
       </label>
       <input 
-      onChange={(text:FormEvent<HTMLInputElement>) => (setUser({...user, email:text.currentTarget.value}))}
-      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="email" placeholder="Doe"/>
+        name='email'
+      value={user.email}
+      onChange={handleChange}
+      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="email" placeholder="tuemail@email.com"/>
     </div>
   </div>
   <div className="flex flex-wrap mb-6 transition duration-100
@@ -105,7 +146,9 @@ console.log(user.dateOfBirth)
       </label>
       </div>
       <input 
-      onChange={(text:FormEvent<HTMLInputElement>) => (setUser({...user, password:text.currentTarget.value}))}
+       name='password'
+      value={user.password}
+      onChange={handleChange}
       className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="password" placeholder="******************"/>
     </div>
     <div className="w-full  transition duration-100
@@ -114,7 +157,9 @@ console.log(user.dateOfBirth)
         Confirmar contraseña
       </label>
       <input 
-      onChange={(text:FormEvent<HTMLInputElement>) => (setUser({...user, confirmPassword:text.currentTarget.value}))}
+       name='confirmPassword'
+      value={user.confirmPassword}
+      onChange={handleChange}
       className=" appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="password" placeholder="******************"/>
     </div>
   <div className="flex flex-wrap  mb-2">
@@ -124,10 +169,11 @@ console.log(user.dateOfBirth)
         Ciudad
       </label>
           <select
+           name='city'
           value={user.city}
-          onChange={(text:ChangeEvent<HTMLSelectElement>) => (setUser({...user, city:text.target.value}))}
-          className="t
-          block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+          
+      onChange={handleSelect}
+          className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
           {Cities.map( city=>(
             <option 
             key={city.city}
@@ -144,7 +190,9 @@ console.log(user.dateOfBirth)
       </label>
 
         <select className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state"
-        
+         name='department'
+      value={user.department}
+      onChange={handleSelect}
           >
           {Departments.map( department=>(
             <option 
@@ -158,9 +206,21 @@ console.log(user.dateOfBirth)
     <div className="w-full md:w-1/3  mt-2 mb-6 md:mb-0 transition duration-100
           transform hover:scale-105">
       <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-zip">
-        Cedula
+        Numero de Cedula (*)
       </label>
-      <input className="appearance-none block w-full bg-gray-200 text-white  py-3 px-4 rounded" id="grid-zip" type="text" placeholder="123456789"/>
+      <input
+       name='idCardNumber'
+      value={user.idCardNumber}
+      onChange={handleChange}
+       className="appearance-none block w-full bg-gray-200 text-white  py-3 px-4 rounded" id="grid-zip" type="text" placeholder="123456789"/>
+      <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-zip">
+        Numero de Cedula (*)
+      </label>
+      <input
+       name='idCardFile'
+      value={user.idCardFile}
+      onChange={handleUploadFile}
+       className="appearance-none block w-full bg-gray-200 text-white  py-3 px-4 rounded" id="grid-zip" type="file" placeholder="123456789"/>
     </div>
 
     <div className=' mt-2 mb-6 md:mb-0 transition duration-100
@@ -168,11 +228,20 @@ console.log(user.dateOfBirth)
         <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-zip">
             Fecha de expedicion
         </label>
-        <input 
+        {/* <input 
+         name='dateOfBirth'
+      value={user.dateOfBirth}
+      onChange={}
         className=' appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
-        type="date" placeholder='select a date' />
+        type="date" placeholder='select a date' /> */}
+          <DatePicker
+         className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
+         selected={user.dateOfExpedition} onChange={(date: Date) => setUser({...user, dateOfExpedition: date})} />
     </div>
-<button className='transition duration-100
+<button
+
+type="submit"
+className='transition duration-100
           transform hover:scale-125 w-full text-center justify-center flex px-2 rounded-md mx-auto py-4 text-white font-bold bg-gradient-to-r from-[#0856c5] to-[#07bfff] tracking-widest hover:tracking-[6px]'>REGISTRARSE</button>
 </form>
 </div>
