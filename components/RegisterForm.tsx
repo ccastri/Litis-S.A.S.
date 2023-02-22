@@ -1,10 +1,12 @@
 import { Cities, Departments } from 'cities'
+// import { Cities, Departments } from 'UploadFiles'
 import Image from 'next/image';
 import React, { ChangeEvent, FormEvent, useState } from 'react'
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 import Header from './Header';
+import { Upload } from './UploadFiles';
 
 export interface User {
     // id: number,
@@ -18,7 +20,7 @@ export interface User {
         department:string,
         state:string,
         idCardNumber:string,
-        idCardFile: File,
+        idCardFile?: File | string[],
         dateOfExpedition:Date,
     
 }
@@ -34,7 +36,7 @@ const RegisterForm = () => {
         department:"",
         state:"",
         idCardNumber:"",
-        idCardFile: [],
+        idCardFile: undefined,
         dateOfExpedition: new Date(),
     })
 // console.log(user)
@@ -49,10 +51,10 @@ const handleSelect = (e: ChangeEvent<HTMLSelectElement>) =>{
    setUser({...user, [name]:value})
 }
 
-const handleUploadFile = (e:  ChangeEvent<HTMLInputElement>) =>{
-  setUser({...user, idCardFile:e.currentTarget.files[0]})
+// const handleUploadFile = (e:  ChangeEvent<HTMLInputElement>) =>{
+//   setUser({...user, idCardFile:e.currentTarget.files[0]})
 
-}
+// }
     const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
       e.preventDefault()
         console.log(user)
@@ -203,8 +205,8 @@ const handleUploadFile = (e:  ChangeEvent<HTMLInputElement>) =>{
         </select>
 
     </div>
-    <div className="w-full md:w-1/3  mt-2 mb-6 md:mb-0 transition duration-100
-          transform hover:scale-105">
+    {/* <div className="w-full md:w-1/3  mt-2 mb-6 md:mb-0 transition duration-100
+          transform hover:scale-105"> */}
       <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-zip">
         Numero de Cedula (*)
       </label>
@@ -216,12 +218,14 @@ const handleUploadFile = (e:  ChangeEvent<HTMLInputElement>) =>{
       <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-zip">
         Numero de Cedula (*)
       </label>
-      <input
+      <Upload/>
+      {/* <input
        name='idCardFile'
       value={user.idCardFile}
       onChange={handleUploadFile}
        className="appearance-none block w-full bg-gray-200 text-white  py-3 px-4 rounded" id="grid-zip" type="file" placeholder="123456789"/>
-    </div>
+    </div> */}
+
 
     <div className=' mt-2 mb-6 md:mb-0 transition duration-100
           transform hover:scale-105'>
