@@ -48,28 +48,33 @@ export const Upload = (props: UploaderProps) => {
   };
 
   return (
-    <div className="flex flex-wrap bg-blue-500 rounded">
+    <div className="flex flex-wrap bg-blue-500 rounded space-y-4 p-2 text-gray-100">
       {/* <Button
         variant="contained"
         component="label"
         style={{ textTransform: "none" }}
       > */}
-        {!selectedFiles?.name && <span> Choose file to upload</span>}
-        {selectedFiles?.name && (
-          <div className="bg-red-200 w-full">
-            <span className=' bg-blue-800' > {selectedFiles?.name}</span>
-            <span className="text-bold"> Change</span>
-            <span onClick={(e) => {e.preventDefault(); setSelectedFiles(undefined)}}>Clear</span>
-          </div>
-        )}
-        
-
+        {!selectedFiles?.name && <span className="text-xl pt-2 text-gray-100 font-semibold "> Choose file to upload</span>}
         <input
-          className=" bg-blue-600"
+          className=" "
           type="file"
           accept={acceptedFormats}
           onChange={handleFileSelect}
           />
+        {selectedFiles?.name && (
+          <div className=" w-full flex  flex-wrap space-y-4 ">
+            <span className=' bg-blue-800  rounded ' > {selectedFiles?.name}</span>
+            <div className="space-x-2 text-bold flex- flex-wrap text-md ">
+
+            <span className="py-2 px-4 border 1px-solid rounded "> Change</span>
+            <span 
+            className="border 1px-solid rounded py-2 px-4 bg-red-500"
+            onClick={(e) => {e.preventDefault(); setSelectedFiles(undefined)}}>Clear</span>
+            </div>
+          </div>
+        )}
+        
+
           
       {/* </Button> */}
       {/* <input
@@ -81,7 +86,7 @@ export const Upload = (props: UploaderProps) => {
 
 
       <button
-      className='rounded px-5 ml-50 py-2 border 1px-solid'
+      className='rounded px-5 flex right-0 py-2 border 1px-solid'
       onClick={ onUpload}
       >
         Upload

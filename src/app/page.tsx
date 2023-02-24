@@ -6,9 +6,9 @@ import Header from 'components/Header'
 
 export default function Home() {
   return (
-    <div className='w-full text-white h-screen'>
+    <div className='text-white'>
       {/* <Header/> */}
-      <Carrousel/>
+      <Carrousel />
       <Admin/>
     </div>
 	);

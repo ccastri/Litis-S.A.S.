@@ -20,7 +20,7 @@ export interface User {
         department:string,
         state:string,
         idCardNumber:string,
-        idCardFile?: File | string[],
+        // idCardFile?: File | string[],
         dateOfExpedition:Date,
     
 }
@@ -36,56 +36,54 @@ const RegisterForm = () => {
         department:"",
         state:"",
         idCardNumber:"",
-        idCardFile: undefined,
+        // idCardFile: undefined,
         dateOfExpedition: new Date(),
     })
 // console.log(user)
-const handleChange = (e: ChangeEvent<HTMLInputElement> ) =>{
+const handleChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) =>{
 const {name, value} = e.currentTarget 
   setUser({...user, [name]:value})
 }
 
-const handleSelect = (e: ChangeEvent<HTMLSelectElement>) =>{
-   e.preventDefault
-   const {name, value} = e.currentTarget
-   setUser({...user, [name]:value})
-}
-
-// const handleUploadFile = (e:  ChangeEvent<HTMLInputElement>) =>{
-//   setUser({...user, idCardFile:e.currentTarget.files[0]})
-
+// const handleSelect = (e: ) =>{
+//    e.preventDefault
+//    const {name, value} = e.currentTarget
+//    setUser({...user, [name]:value})
 // }
+
     const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
       e.preventDefault()
+      // Here firebase function will be called
         console.log(user)
     }
+// Validations coming soon
   return (
     <>
     <Header/>
-    <div className='relative  p-12  '>
+    <div className='relative  p-6  '>
       <Image
       src='/registration-form-bg.png'
       alt='Register form bg'
     // height={auto}
     fill
       object-fit='contain'
-      className='  opacity-100'
+      className='  opacity-40'
       />
-    <div className='flex items-center justify-center flex-col shadow-2xl backdrop-blur-sm mb-4 border-2 border-gray-200 bg-gradient-to-b from-gray-600  to-gray-300 opacity-100 p-8  rounded-tl-3xl rounded-br-3xl m-12 '> 
+    <div className='flex  md:w-[50%] xl:w-[50%]  flex-col shadow-2xl backdrop-blur-xl mb-4 border-2 border-gray-500 bg-gradient-to-b from-[#86A3F9]  to-gray-500 p-8  rounded-3xl '> 
       <h1 className='tracking-wider mb-2 text-white font-bold text-3xl text-center'>TRABAJA CON NOSOTROS</h1>
-       <div className='my-4 flex bg-gray-300 rounded justify-center mx-auto items-center h-16 w-26'>
+       <div className='my-4 flex bg-gray-300 rounded justify-center mx-auto items-center '>
 
        <Image
           src='/LOGO-LITIS-removebg.png'
           width={100}
           height={100}
-          className=' justify-center mx-auto '
+          className=' justify-center flex mx-auto items-center '
           object-fit='contain'
           alt=''/>
           </div>
      <form 
      onSubmit={handleSubmit}
-     className="w-full max-w-lg ">
+     className="w-72 sm:w-full max-w-lg ">
   <div className="flex flex-wrap -mx-3 mb-6">
     <div className="transition duration-100
                         transform hover:scale-105 w-full  md:w-1/2 px-3 mb-6 md:mb-0 ">
@@ -174,7 +172,7 @@ const handleSelect = (e: ChangeEvent<HTMLSelectElement>) =>{
            name='city'
           value={user.city}
           
-      onChange={handleSelect}
+      onChange={handleChange}
           className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
           {Cities.map( city=>(
             <option 
@@ -194,7 +192,7 @@ const handleSelect = (e: ChangeEvent<HTMLSelectElement>) =>{
         <select className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state"
          name='department'
       value={user.department}
-      onChange={handleSelect}
+      onChange={handleChange}
           >
           {Departments.map( department=>(
             <option 
@@ -219,12 +217,7 @@ const handleSelect = (e: ChangeEvent<HTMLSelectElement>) =>{
         Numero de Cedula (*)
       </label>
       <Upload/>
-      {/* <input
-       name='idCardFile'
-      value={user.idCardFile}
-      onChange={handleUploadFile}
-       className="appearance-none block w-full bg-gray-200 text-white  py-3 px-4 rounded" id="grid-zip" type="file" placeholder="123456789"/>
-    </div> */}
+
 
 
     <div className=' mt-2 mb-6 md:mb-0 transition duration-100
@@ -232,12 +225,6 @@ const handleSelect = (e: ChangeEvent<HTMLSelectElement>) =>{
         <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-zip">
             Fecha de expedicion
         </label>
-        {/* <input 
-         name='dateOfBirth'
-      value={user.dateOfBirth}
-      onChange={}
-        className=' appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
-        type="date" placeholder='select a date' /> */}
           <DatePicker
          className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
          selected={user.dateOfExpedition} onChange={(date: Date) => setUser({...user, dateOfExpedition: date})} />

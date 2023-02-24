@@ -4,7 +4,7 @@ import React from 'react'
 
 const Header = () => {
   return (
-<div className=' text-xl bg-[#B5A15B]  flex w-full justify-between items-center my-auto py-5 h-16 mb-0'>
+<div className=' text-white text-xl bg-[#675FFA]  flex w-full justify-between items-center my-auto py-5 h-16 mb-0'>
         <MenuIcon className='h-6   mx-8 
         transition duration-100
                         transform hover:scale-125
