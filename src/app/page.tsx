@@ -8,7 +8,10 @@ export default function Home() {
   return (
     <div className='text-white'>
       {/* <Header/> */}
+      <div className='mb-20'>
+
       <Carrousel />
+      </div>
       <Admin/>
     </div>
 	);

@@ -12,8 +12,8 @@ const Carrousel = () => {
 
 
     return (
-        <div className='flex w-full'>
-            <Carousel className='py-5 w-full  xl:flex xl:pl-[35%] items-center justify-center mx-auto bg-blue-200 '>
+        <div className='flex  w-full'>
+            <Carousel className='py-5 xl:w-full   xl:px-[15%] items-center justify-center mx-auto bg-blue-200 '>
                 <div className=''>
                     <img                         
                     //  className=' rounded-xl'
