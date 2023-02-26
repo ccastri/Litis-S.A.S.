@@ -26,7 +26,7 @@ export const AdminItems:AdminItem[]=[
     },
     {
         id: 2,
-        title: 'Administradora de Riesgos Laborales',
+        title: 'Riesgos Laborales',
         image: '/socialsecurity.png',
         color: 'bg-[#07bfff]', 
         icon: <EngineeringIcon sx={{fontSize:'80px'}}/>

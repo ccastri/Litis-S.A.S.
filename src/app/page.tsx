@@ -1,6 +1,7 @@
 import Admin from 'components/Admin'
 import Carrousel from 'components/Carrousel'
 import Header from 'components/Header'
+import Plans from 'components/Plans';
 
 
 
@@ -8,11 +9,12 @@ export default function Home() {
   return (
     <div className='text-white'>
       {/* <Header/> */}
-      <div className='mb-20'>
+     
 
       <Carrousel />
-      </div>
+   
       <Admin/>
+      <Plans />
     </div>
 	);
 }
