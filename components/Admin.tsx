@@ -2,7 +2,8 @@
 import { AdminItems } from 'adminImages';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState,  } from 'react';
+import { useRef, useState,  } from 'react';
+import Plans from './Plans';
 
 export interface DivClicked {
   isClicked: boolean;
@@ -13,7 +14,11 @@ export interface DivClicked {
 const Admin = () => {
   const [isClicked, setIsClicked] = useState(false)
   // const navigation = useNavigation()
-  console.log(isClicked)
+  // console.log(isClicked)
+  const plansRef = useRef<null | HTMLDivElement>(null)
+  const handleScroll = () => {
+    plansRef.current?.scrollIntoView({behavior: 'smooth'})
+  }
 
   const handleClick = ()=>{
     setIsClicked(!isClicked)
@@ -49,13 +54,22 @@ const Admin = () => {
                   <div className=' p-5  flex flex-column opacity-100 absolute items-start bg-slate-400  w-full  '>
                   <p className=''>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, fuga deserunt! Voluptatem 
                     distinctio dicta recusandae ipsam nulla nisi. Aliquam tempora minima sunt, sapiente quaerat
-                     ratione natus temporibus beatae officiis obcaecati.<hr/><Link href='/plans'><span className='cursor-pointer bg-blue-400 my-2 px-2 py-1 font-bold text-xs rounded-xl '>Planes y precios</span></Link>
+                     ratione natus temporibus beatae officiis obcaecati.<hr/>
+                     <span  onClick={handleScroll}
+                     className='cursor-pointer bg-blue-400 my-2 px-2 py-1 font-bold text-xs rounded-xl '
+                     >Planes y precios
+                     </span>
                   </p>
                   
                 </div>)}
                   </div>
             </div>
           ))}
+    </div>
+    <div 
+    ref={plansRef}
+   >
+      <p>This is the element I want to scroll though</p>
     </div>
     </div>
 
