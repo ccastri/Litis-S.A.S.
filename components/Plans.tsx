@@ -1,9 +1,12 @@
-import React from 'react'
+import {forwardRef} from 'react'
 
-const Plans = () => {
+// const ref = createRef();
+
+const Plans = forwardRef<HTMLDivElement>((props, ref) => {
   return (
-    <div className='text-black absolute'><h1 className='text-black'>Plan works</h1></div>
+    <div ref={ref} className='text-white'><h1 className=''>Plan works</h1></div>
   )
-}
+})
+Plans.displayName = 'Plans';
 
 export default Plans
