@@ -32,8 +32,8 @@ const Carousel = () => {
         setCurrentSlide(newIndex)
     }
   return (
-    <div className=' max-w-[1400px] h-[calc(100%-16)] w-full m-auto py-16 px-4 relative group'>
-        <div className='rounded-2xl w-full h-screen duration-500'>
+    <div className=' max-w-[1400px] h-[580px] w-full m-auto py-16 px-4 relative group'>
+        <div className='rounded-2xl w-full h-full duration-500'>
             
                 <Image 
                 

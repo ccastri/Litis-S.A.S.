@@ -34,9 +34,11 @@ const RegisterForm = () => {
         confirmPassword:"",
         city:"",
         department:"",
-        state:"",
+        state:"", // barrio
         idCardNumber:"",
         // idCardFile: undefined,
+        // Address
+        // phone number
         dateOfExpedition: new Date(),
     })
 // console.log(user)
