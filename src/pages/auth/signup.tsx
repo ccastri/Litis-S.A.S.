@@ -1,3 +1,4 @@
+import RootLayout from '@/app/layout'
 import RegisterForm from 'components/RegisterForm'
 // import { app, auth } from '../../../firebase'
 import '../../app/globals.css'
@@ -5,7 +6,10 @@ import '../../app/globals.css'
 const signup = () => {
   return (
     // <div className='px-2'>
-    <RegisterForm/>
+    <RootLayout>
+
+      <RegisterForm/>
+    </RootLayout>
 // </div>
   )
 }

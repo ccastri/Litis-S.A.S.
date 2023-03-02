@@ -61,7 +61,7 @@ const {name, value} = e.currentTarget
 // Validations coming soon
   return (
     <>
-    <Header/>
+    {/* <Header/> */}
     <div className='relative  p-6  '>
       <Image
       src='/registration-form-bg.png'

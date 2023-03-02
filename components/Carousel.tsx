@@ -3,6 +3,7 @@ import Image from 'next/image'
 import {useState} from 'react'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
 export interface Slide{
     url:string
@@ -32,15 +33,15 @@ const Carousel = () => {
         setCurrentSlide(newIndex)
     }
   return (
-    <div className=' max-w-[1400px] h-[580px] w-full m-auto py-16 px-4 relative group'>
-        <div className='rounded-2xl w-full h-full duration-500'>
+    <div className=' max-w-[1400px] h-[580px] w-full  relative group'>
+        <div className=' w-full h-full duration-500'>
             
                 <Image 
                 
                 fill 
                 alt='' 
                 src={slides[currentSlide].url}
-                className='h-2 absolute'
+                className=' absolute m-auto rounded-2xl duration-500 '
                 />
                 
             )
