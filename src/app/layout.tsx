@@ -18,9 +18,9 @@ export default function RootLayout({
       <head />
 
       <body className='mb-0'>
-        <div className='text-white'>
+        <div className=' text-white'>
 
-      <Header/>
+      {/* <Header/> */}
       <Sidebar/>
         </div>
         <div>
