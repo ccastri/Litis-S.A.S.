@@ -1,6 +1,7 @@
 import Header from 'components/Header'
-import Sidebar from 'components/Sidebar'
+// import Sidebar from '@/app/Sidebar'
 import './globals.css'
+import Sidebar from './Sidebar'
 // import {useState} from 'react'
 
 export default function RootLayout({
@@ -18,7 +19,7 @@ export default function RootLayout({
       <head />
 
       <body className='mb-0'>
-        <div className=' text-white'>
+        <div className='relative z-50 text-white'>
 
       {/* <Header/> */}
       <Sidebar/>

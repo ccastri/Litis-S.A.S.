@@ -1,12 +1,14 @@
 import { Cities, Departments } from 'cities'
+import '../globals.css'
+
 // import { Cities, Departments } from 'UploadFiles'
 import Image from 'next/image';
 import React, { ChangeEvent, FormEvent, useState } from 'react'
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
-import Header from './Header';
-import { Upload } from './UploadFiles';
+import Header from '../../../components/Header';
+import { Upload } from '../../../components/UploadFiles';
 
 export interface User {
     // id: number,

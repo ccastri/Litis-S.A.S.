@@ -4,47 +4,64 @@ import Diversity2Icon from '@mui/icons-material/Diversity2';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact';
 import { MenuIcon } from '@heroicons/react/outline';
-import {useState} from 'react'
+import {useRef, useState} from 'react'
 import Image from 'next/image';
+import Carrousel from 'components/Carrousel';
+import Link from 'next/link';
 const Sidebar = () => {
-    const [isOpen, setIsOpen] = useState(false)
+    const [isOpen, setIsOpen] = useState(true)
+
+     const HomeRef = useRef<null | HTMLDivElement>(null)
   return (
-    <div className={`  text-white text-xl bg-[#675FFA]  `}>
-        <div className='flex flex-row w-full justify-between items-center my-auto py-5  mb-0'>
+    <div className={`  fixed w-full top-0 h-28 z-100 text-white text-xl bg-[#675FFA]  `}>
+        <div className='   z-50 flex flex-row w-full justify-between items-center  py-2  '>
 
           {/* <Sidebar/> */}
           <MenuIcon 
           onClick={()=> setIsOpen(!isOpen)}
-          className={`h-6 mx-8 transition duration-100 transform hover:scale-125 hover:text-white`} />
+          className={`h-10 mx-8 transition duration-100 transform hover:scale-125 hover:text-white`} />
+         
+
           <Image
           src='/LOGO-LITIS-removebg.png'
-          width={100}
-          height={100}
+          width={150}
+          height={150}
           className='mr-4 transition duration-100
           transform hover:scale-125
           '
           object-fit='cover'
           alt=''/>
+          
           </div>
-    <div className={`absolute z-50 opacity-70 h-full  ${isOpen && '-translate-x-full'} rounded bg-blue-500`}>
+    <div className={`fixed z-50 opacity-[85%] w-[55%] h-[calc(100%-9rem)]  ${isOpen && '-translate-x-full  bottom-0 relative'}  rounded bg-blue-500`}>
         <h1 className='text-center text-3xl py-4 '>MENU</h1>
-        <div className='  rounded-md hover:opacity-100 hover:bg-green-500 space-y-4 p-6'>
-            <div className='flex space-x-4 items-center hover:text-3xl m-auto  hover:bg-slate-600 rounded-md hover:px-4'>
+        {/* <Link ></Link> */}
+        <div 
+        
+        className='  rounded-md hover:opacity-100  text-justify justify-between hover:bg-green-500 space-y-4 p-6'>
+            <Link href='/' onClick={()=>setIsOpen(!isOpen)}>
+            <div className='flex space-x-4 items-center hover:text-3xl m-auto w-full hover:bg-slate-600 rounded-md hover:px-4'>
             <HomeIcon sx={{fontSize:'30px'}} className=''/>
             <h2 className=''>Inicio</h2>
             </div>
+            </Link>
            <div className='flex space-x-4 items-center hover:text-3xl  hover:bg-slate-600 rounded-md hover:px-4'>
             <Diversity2Icon sx={{fontSize:'30px'}} className=''/>
             <h2 className=''>Quienes Somos</h2>
             </div>
-            <div className='flex space-x-4 items-center hover:text-3xl  hover:bg-slate-600 rounded-md hover:px-4'>
+            <div >
+            <Link href='/signup'
+            className='flex space-x-4 items-center hover:text-3xl  hover:bg-slate-600 rounded-md hover:px-4'
+            >
             <GroupAddIcon sx={{fontSize:'30px'}} className=''/>
             <h2 className=''>Afiliate Ya</h2>
+            </Link>
             </div>
-           <div className='flex space-x-4 items-center hover:text-3xl  hover:bg-slate-600 rounded-md hover:px-4'>
+            <div className='w-full text-center flex space-x-2 items-center hover:text-3xl  hover:bg-slate-600 rounded-md '>
             <ConnectWithoutContactIcon sx={{fontSize:'30px'}} className=''/>
             <h2 className=''>Contactanos</h2>
             </div>
+            
         </div>
         </div>
     </div>

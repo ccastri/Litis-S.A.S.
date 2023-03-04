@@ -3,7 +3,7 @@ import { MenuIcon } from '@heroicons/react/outline'
 import Image from 'next/image'
 import {useState} from 'react'
 import { useDispatch } from 'react-redux';
-import Sidebar from './Sidebar'
+import Sidebar from '../src/app/Sidebar'
 
 const Header = () => {
 
