@@ -49,9 +49,9 @@ const Sidebar = () => {
             <Diversity2Icon sx={{fontSize:'30px'}} className=''/>
             <h2 className=''>Quienes Somos</h2>
             </div>
-            <div >
+            <div className='cursor-pointer'>
             <Link href='/signup'
-            className='flex space-x-4 items-center hover:text-3xl  hover:bg-slate-600 rounded-md hover:px-4'
+            className='flex space-x-4 items-center hover:text-3xl cursor-pointer hover:bg-slate-600 rounded-md hover:px-4'
             >
             <GroupAddIcon sx={{fontSize:'30px'}} className=''/>
             <h2 className=''>Afiliate Ya</h2>

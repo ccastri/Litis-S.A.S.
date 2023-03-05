@@ -34,7 +34,7 @@ const Carousel = () => {
     }
   return (
     <div className=' max-w-[1400px] h-[580px] w-full  relative group'>
-        <div className=' w-full h-full duration-500'>
+        <div className=' w-full h-full transition duration-500'>
             
                 <Image 
                 

@@ -26,7 +26,11 @@ export interface User {
         dateOfExpedition:Date,
     
 }
+interface SubmittedForm{
+  isSubmitted:boolean
+}
 const RegisterForm = () => {
+  const [onSubmit, setOnSubmit] = useState<boolean>(false)
     const [user, setUser] = useState<User>({
         firstName:"",
         lastName:"",
@@ -58,7 +62,13 @@ const {name, value} = e.currentTarget
     const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
       e.preventDefault()
       // Here firebase function will be called
-        console.log(user)
+      setOnSubmit(!onSubmit)
+      // (user.firstName.length === 0 )
+      // ? 
+      //   onSubmit? '' 
+      //   : ''
+      // :''
+        console.log(user.firstName.length)
     }
 // Validations coming soon
   return (
@@ -88,7 +98,7 @@ const {name, value} = e.currentTarget
      <form 
      onSubmit={handleSubmit}
      className="w-72 sm:w-full max-w-lg ">
-  <div className="flex flex-wrap -mx-3 mb-6">
+  <div className="flex flex-wrap justify-center -mx-3 mb-6">
     <div className="transition duration-100
                         transform hover:scale-105 w-full  md:w-1/2 px-3 mb-6 md:mb-0 ">
       <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2 " htmlFor="grid-first-name">
@@ -96,10 +106,12 @@ const {name, value} = e.currentTarget
       </label>
       <input
       name='firstName'
+      required
       value={user.firstName}
       onChange={handleChange}
-      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Jane"/>
-      <p className="text-red-500 text-xs italic">Please fill out this field.</p>
+      className={`appearance-none block w-full bg-gray-200 text-gray-700 border ${onSubmit&&'border-red-500'} rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`} id="grid-first-name" type="text" placeholder="Jane"/>
+      {onSubmit? 
+        user.firstName.length === 0 ? <p className="text-red-500 text-xs italic">Please fill out this field.</p>: <></>:''}
     </div>
     <div className="w-full md:w-1/2 px-3 transition duration-100
                         transform hover:scale-105">

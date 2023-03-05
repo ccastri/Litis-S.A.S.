@@ -46,9 +46,9 @@ export const Admin = () => {
                 className='flex mx-auto  text-white text-center relative items-center opacity-0 group-hover:opacity-100 text-3xl font-OpenSans justify-center font-bold'>
                   {item.title}
                 </p>
-                {isClicked ? (<p  className='font-bold flex  justify-center w-16  mb-2 py-1 px-4 ml-[45%] text-white border-2 border-red-500 hover:bg-red-500 rounded cursor-pointer'
+                {isClicked ? (<p  className='font-bold flex  justify-center w-16  mb-2 py-1 px-4 ml-[45%] text-white border-2 border-white  hover:bg-red-500 rounded cursor-pointer'
                 onClick={handleClick}>Close</p>):(<p 
-                className='font-bold border-2 border-blue-900 hover:bg-blue-500 w-24 ml-[40%] cursor-pointer rounded-md py-2 mt-2'
+                className='font-bold border-2 border-white hover:bg-blue-500 w-24 ml-[40%] cursor-pointer rounded-md py-2 mt-2'
                 onClick={handleClick}>Ver mas...</p>)}
 
                 {isClicked &&(
@@ -58,7 +58,7 @@ export const Admin = () => {
                      ratione natus temporibus beatae officiis obcaecati.
                      <hr/>
                       <span  onClick={handleScroll}
-                      className='cursor-pointer relative hover:bg-blue-900 hover:text-white border-2 border-blue-600 mt-1 ml-[40%] w-28 px-2 font-bold text-xs rounded-md py-2 flex '
+                      className='cursor-pointer relative hover:bg-blue-900  border-2 border-white mt-1 ml-[40%] w-28 px-2 font-bold text-xs rounded-md py-2 flex '
                       >Planes y precios
                       </span>
                   </p>
