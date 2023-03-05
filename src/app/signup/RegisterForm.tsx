@@ -10,20 +10,23 @@ import "react-datepicker/dist/react-datepicker.css";
 import Header from '../../../components/Header';
 import { Upload } from '../../../components/UploadFiles';
 
+
 export interface User {
     // id: number,
         firstName:string,
         lastName:string,
-        dateOfBirth: Date,
+        phoneNumber:string,
+        department:string,
+        city:string,
+        neighborhood: string,
         email:string,
+        idCardNumber:string,
+        dateOfExpedition:Date,
+        dateOfBirth: Date,
         password:string,
         confirmPassword:string,
-        city:string,
-        department:string,
-        state:string,
-        idCardNumber:string,
+        // state:string,
         // idCardFile?: File | string[],
-        dateOfExpedition:Date,
     
 }
 interface SubmittedForm{
@@ -34,18 +37,19 @@ const RegisterForm = () => {
     const [user, setUser] = useState<User>({
         firstName:"",
         lastName:"",
-        dateOfBirth: new Date(),
+        phoneNumber:"",
+        department:"",
+        city:"",
+        neighborhood:"", 
         email:"",
+        idCardNumber:"",
+        dateOfExpedition: new Date(),
+        dateOfBirth: new Date(),
         password:"",
         confirmPassword:"",
-        city:"",
-        department:"",
-        state:"", // barrio
-        idCardNumber:"",
         // idCardFile: undefined,
         // Address
         // phone number
-        dateOfExpedition: new Date(),
     })
 // console.log(user)
 const handleChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) =>{
@@ -53,28 +57,21 @@ const {name, value} = e.currentTarget
   setUser({...user, [name]:value})
 }
 
-// const handleSelect = (e: ) =>{
-//    e.preventDefault
-//    const {name, value} = e.currentTarget
-//    setUser({...user, [name]:value})
-// }
+
 
     const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
       e.preventDefault()
       // Here firebase function will be called
       setOnSubmit(!onSubmit)
-      // (user.firstName.length === 0 )
-      // ? 
-      //   onSubmit? '' 
-      //   : ''
-      // :''
+
+
         console.log(user.firstName.length)
     }
 // Validations coming soon
   return (
     <>
     {/* <Header/> */}
-    <div className='relative  p-6  '>
+    <div className='relative my-12 p-6  '>
       <Image
       src='/registration-form-bg.png'
       alt='Register form bg'
@@ -83,25 +80,25 @@ const {name, value} = e.currentTarget
       object-fit='contain'
       className='  opacity-40'
       />
-    <div className='flex  md:w-[50%] xl:w-[50%]  flex-col shadow-2xl backdrop-blur-xl mb-4 border-2 border-gray-500 bg-gradient-to-b from-[#86A3F9]  to-gray-500 p-8  rounded-3xl '> 
-      <h1 className='tracking-wider mb-2 text-white font-bold text-3xl text-center'>TRABAJA CON NOSOTROS</h1>
-       <div className='my-4 flex bg-gray-300 rounded justify-center mx-auto items-center '>
+    <div className='flex  mt-16 md:w-[50%] xl:w-[50%]  flex-col shadow-2xl backdrop-blur-sm mb-4   p-8   '> 
+      <h1 className='tracking-wider mb-2 text-gray-700 font-bold text-3xl text-center'>AFILIATE CON NOSOTROS</h1>
+       <div className='my-6 flex rounded justify-center mx-auto items-center '>
 
        <Image
           src='/LOGO-LITIS-removebg.png'
-          width={100}
-          height={100}
+          width={150}
+          height={150}
           className=' justify-center flex mx-auto items-center '
           object-fit='contain'
           alt=''/>
           </div>
      <form 
      onSubmit={handleSubmit}
-     className="w-72 sm:w-full max-w-lg ">
-  <div className="flex flex-wrap justify-center -mx-3 mb-6">
+     className="w-72 sm:w-full max-w-lg mx-auto ">
+  <div className="flex flex-wrap mx-auto justify-center  mb-6">
     <div className="transition duration-100
-                        transform hover:scale-105 w-full  md:w-1/2 px-3 mb-6 md:mb-0 ">
-      <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2 " htmlFor="grid-first-name">
+                        transform hover:scale-105 w-full focus:text-xs text-md md:w-1/2 px-3 mb-6 md:mb-0 ">
+      <label className="block uppercase tracking-wide text-gray-700 text-xs pt-2 pl-2 bg-white" htmlFor="grid-first-name">
         Nombres
       </label>
       <input
@@ -109,33 +106,93 @@ const {name, value} = e.currentTarget
       required
       value={user.firstName}
       onChange={handleChange}
-      className={`appearance-none block w-full bg-gray-200 text-gray-700 border ${onSubmit&&'border-red-500'} rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`} id="grid-first-name" type="text" placeholder="Jane"/>
-      {onSubmit? 
-        user.firstName.length === 0 ? <p className="text-red-500 text-xs italic">Please fill out this field.</p>: <></>:''}
+      className={`  w-full border-solid border-b border-black text-gray-700  ${onSubmit&&'border-red-500'}  py-3 px-4 mb-3 leading-tight focus:outline-none bg-slate-200 hover:bg-white`} id="grid-first-name" type="text" placeholder="Jane"/>
+      {onSubmit ? 
+        (user.firstName.length === 0) ? 
+        (<p className="text-red-500 text-xs italic">Please fill out this field.</p>) :
+      (<></>)  :
+      ('')
+         }
     </div>
     <div className="w-full md:w-1/2 px-3 transition duration-100
                         transform hover:scale-105">
-      <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-last-name">
+      <label className="block uppercase tracking-wide  text-gray-700 text-xs pt-2 pl-2 bg-white" htmlFor="grid-last-name">
         Apellidos
       </label>
       <input 
        name='lastName'
+       required
       value={user.lastName}
       onChange={handleChange}
-      className="transition duration-100
-                        transform hover:scale-105
-      appearance-none block w-full bg-gray-200 text-gray-700 border border-white rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe"/>
-    </div>
+      className="
+      border-solid border-b border-black w-full  text-gray-700  py-3 px-4 leading-tight focus:outline-none bg-slate-200 hover:bg-white " id="grid-last-name" type="text" placeholder="Doe"/>
     
+        </div>
+      <div className="flex w-full items-center justify-center mx-auto my-8  mb-2">
+    <div className="px-3 w-full md:w-1/3   md:mb-0 transition duration-100
+          transform hover:scale-105">
+      <label className="block uppercase tracking-wide text-gray-700 text-xs bg-white pt-2 pl-2" htmlFor="grid-city">
+        Ciudad
+      </label>
+          <select
+           name='city'
+           value={user.city}
+           
+           onChange={handleChange}
+           className="block appearance-none w-full  border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none bg-slate-200 hover:bg-white" id="grid-state">
+          {Cities.map( city=>(
+            <option 
+            key={city.city}
+            >{city.city}</option>
+            ))}
+        </select>
+              </div>
+    </div>
+    <div className=" transition duration-100
+                        transform hover:scale-105 md:w-1/3 w-full px-3 my-8 md:mb-0">
+      <label className="
+      block uppercase tracking-wide text-gray-700 text-xs font-semibold  bg-white pt-2 pl-2" htmlFor="grid-state">
+        Departamento
+      </label>
+
+        <select className="block appearance-none w-full  border-b border-black text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none bg-slate-200 hover:bg-white" id="grid-state"
+         name='department'
+         value={user.department}
+         onChange={handleChange}
+         >
+          {Departments.map( department=>(
+            <option 
+            key={department.Department}
+            placeholder=''
+            >{department.Department}</option>
+            ))}
+        </select>
+
+    </div>
+    <div className="transition duration-100
+                        transform hover:scale-105 w-full focus:text-xs text-md md:w-1/2 px-3 mb-6 md:mb-0 ">
+      <label className="block hover:text-xs text-md uppercase tracking-wide text-gray-700 text-xs pt-2 pl-2 bg-white" htmlFor="grid-first-name">
+        Barrio
+      </label>
+      <input
+      name='Neighborhood'
+      required
+      value={user.phoneNumber}
+      onChange={handleChange}
+      className={`  w-full border-solid border-b border-black text-gray-700  ${onSubmit&&'border-red-500'}  py-3 px-4 mb-3 leading-tight bg-slate-200 hover:bg-white`} id="grid-first-name" type="text" placeholder="Jane"/>
+      {onSubmit ? 
+        (user.firstName.length === 0) ? 
+        (<p className="text-red-500 text-xs italic">Please fill out this field.</p>) :
+      (<></>)  :
+      ('')
+         }
+    </div>
  <div className='px-3 mt-4 md:mb-0 transition duration-100
                         transform hover:scale-105'>
         <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-zip">
             Fecha de nacimiento
         </label>
-        {/* <input 
-        onChange={(text:FormEvent<HTMLInputElement>) => (setUser({...user, dateOfBirth:text.currentTarget.value}))}
-        className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
-        type="date" placeholder='select a date' /> */}
+         
          <DatePicker
          className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
          selected={user.dateOfBirth} onChange={(date: Date) => setUser({...user, dateOfBirth: date})} />
@@ -178,47 +235,7 @@ const {name, value} = e.currentTarget
       onChange={handleChange}
       className=" appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="password" placeholder="******************"/>
     </div>
-  <div className="flex flex-wrap  mb-2">
-    <div className="w-full md:w-1/3  mb-6 md:mb-0 transition duration-100
-          transform hover:scale-105">
-      <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-city">
-        Ciudad
-      </label>
-          <select
-           name='city'
-          value={user.city}
-          
-      onChange={handleChange}
-          className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
-          {Cities.map( city=>(
-            <option 
-            key={city.city}
-              >{city.city}</option>
-              ))}
-        </select>
-              </div>
-    </div>
-    <div className=" transition duration-100
-                        transform hover:scale-105 w-full md:w-1/3  mb-6 md:mb-0">
-      <label className="
-      block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-state">
-        Departamento
-      </label>
 
-        <select className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state"
-         name='department'
-      value={user.department}
-      onChange={handleChange}
-          >
-          {Departments.map( department=>(
-            <option 
-            key={department.Department}
-            placeholder=''
-            >{department.Department}</option>
-            ))}
-        </select>
-
-    </div>
     {/* <div className="w-full md:w-1/3  mt-2 mb-6 md:mb-0 transition duration-100
           transform hover:scale-105"> */}
       <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-zip">
