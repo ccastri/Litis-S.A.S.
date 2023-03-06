@@ -9,6 +9,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Header from '../../../components/Header';
 import { Upload } from '../../../components/UploadFiles';
+import { PersonalDataForm } from 'Personal-data';
 
 
 export interface User {
@@ -71,7 +72,8 @@ const {name, value} = e.currentTarget
   return (
     <>
     {/* <Header/> */}
-    <div className='relative my-12 p-6  '>
+    
+    <div className='relative my-12 p-6  bg-sky-200 opacity-70 '>
       <Image
       src='/registration-form-bg.png'
       alt='Register form bg'
@@ -95,27 +97,31 @@ const {name, value} = e.currentTarget
      <form 
      onSubmit={handleSubmit}
      className="w-72 sm:w-full max-w-lg mx-auto ">
+  
   <div className="flex flex-wrap mx-auto justify-center  mb-6">
-    <div className="transition duration-100
-                        transform hover:scale-105 w-full focus:text-xs text-md md:w-1/2 px-3 mb-6 md:mb-0 ">
+ {/* { PersonalDataForm.map(field => ( */}
+ {/* <> */}
+   <div className="transition duration-100
+                        transform hover:scale-105 w-full  text-md md:w-1/2 px-3 mb-6 md:mb-0 hover:underline hover:decoration-sky-600 font-semibold hover:font-normal ">
       <label className="block uppercase tracking-wide text-gray-700 text-xs pt-2 pl-2 bg-white" htmlFor="grid-first-name">
-        Nombres
+       Nombres
       </label>
       <input
       name='firstName'
       required
       value={user.firstName}
       onChange={handleChange}
-      className={`  w-full border-solid border-b border-black text-gray-700  ${onSubmit&&'border-red-500'}  py-3 px-4 mb-3 leading-tight focus:outline-none bg-slate-200 hover:bg-white`} id="grid-first-name" type="text" placeholder="Jane"/>
+      className={`  w-full border-solid border-b border-black text-gray-700  ${onSubmit&&'border-red-500'}  py-3 px-4 mb-3 leading-tight focus:outline-none bg-slate-200 hover:bg-white font-normal`} id="grid-first-name" type="text" placeholder="Jane"/>
       {onSubmit ? 
         (user.firstName.length === 0) ? 
         (<p className="text-red-500 text-xs italic">Please fill out this field.</p>) :
-      (<></>)  :
-      ('')
-         }
+        (<></>)  :
+        ('')
+      }
     </div>
-    <div className="w-full md:w-1/2 px-3 transition duration-100
-                        transform hover:scale-105">
+    
+    <div className="w-full md:w-1/2 px-3 transition duration-100   
+                        transform hover:scale-105 hover:underline text-md hover:decoration-sky-600 font-semibold hover:font-normal">
       <label className="block uppercase tracking-wide  text-gray-700 text-xs pt-2 pl-2 bg-white" htmlFor="grid-last-name">
         Apellidos
       </label>
@@ -125,7 +131,7 @@ const {name, value} = e.currentTarget
       value={user.lastName}
       onChange={handleChange}
       className="
-      border-solid border-b border-black w-full  text-gray-700  py-3 px-4 leading-tight focus:outline-none bg-slate-200 hover:bg-white " id="grid-last-name" type="text" placeholder="Doe"/>
+      border-solid border-b border-black w-full  text-gray-700 font-normal py-3 px-4 leading-tight focus:outline-none bg-slate-200 hover:bg-white " id="grid-last-name" type="text" placeholder="Doe"/>
     
         </div>
       <div className="flex w-full items-center justify-center mx-auto my-8  mb-2">
