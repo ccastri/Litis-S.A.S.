@@ -12,7 +12,7 @@ const Carrousel = () => {
 
 
     return (
-        <div className='flex  w-full'>
+        <div className='flex relative w-full'>
             <Carousel className='py-5 xl:w-full   xl:px-[15%] items-center justify-center mx-auto bg-blue-200 '>
                 <div className=''>
                     <img                         

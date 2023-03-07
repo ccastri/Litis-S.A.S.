@@ -5,7 +5,7 @@ import './globals.css';
 
 export default function Home() {
   return (
-    <div className='text-white'>
+    <div className='relative text-white'>
       {/* <Header/> */}
       {/* <RootLayout > */}
 

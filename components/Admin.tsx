@@ -38,7 +38,7 @@ export const Admin = () => {
                 src={item.image}
                 fill
                 alt={item.title}
-                className={`absolute group-hover:opacity-50  `}
+                className={`absolute z-10 group-hover:opacity-50  `}
                 />
                 <div className={`w-full h-full mx-auto relative mb-0 opacity-0 group-hover:opacity-100 ${isClicked?'':' pt-16'} justify-center `}>
                 {item.icon}

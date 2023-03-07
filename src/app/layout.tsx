@@ -18,11 +18,13 @@ export default function RootLayout({
       */}
       <head />
 
-      <body className='mb-0'>
-        <div className='relative z-50 text-white'>
+      <body className='mb-0  text-white'>
+        <div className='relative z-50'>
 
-      {/* <Header/> */}
+      {/* Me toca mirar como cuadro esta clase */}
+      
       <Sidebar/>
+      
         </div>
         <div>
           {children}
