@@ -2,17 +2,22 @@ import { Cities, Departments } from 'cities'
 import '../globals.css'
 
 // import { Cities, Departments } from 'UploadFiles'
-import Image from 'next/image';
 import React, { ChangeEvent, FormEvent, useState } from 'react'
-import DatePicker from "react-datepicker";
+import Image from 'next/image';
 
-import "react-datepicker/dist/react-datepicker.css";
 import Header from '../../../components/Header';
 import { Upload } from '../../../components/UploadFiles';
 import { PersonalDataForm } from 'Personal-data';
+
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { useForm, SubmitHandler } from "react-hook-form";
+
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
+
+const baseURL = 'http://localhost:5000/api/v1/auth/register'
 
 export interface User {
     // id: number,
@@ -20,24 +25,23 @@ export interface User {
         lastName:string,
         phoneNumber:string,
         department:string,
-        city:string,
-        neighborhood: string,
+        username:string,
         email:string,
-        idCardNumber:string,
-        dateOfExpedition:Date,
-        dateOfBirth: Date,
         password:string,
         confirmPassword:string,
+        city:string,
+        neighborhood: string,
+        // idCardNumber:string,
+        // dateOfExpedition:Date,
+        // dateOfBirth: Date,
         // state:string,
         // idCardFile?: File | string[],
     
 }
-interface SubmittedForm{
-  isSubmitted:boolean
-}
+
 const RegisterForm = () => {
   const [isPersonalDataClicked, setIsPersonalDataClicked] = useState<boolean>(false)
-  const [onSubmit, setOnSubmit] = useState<boolean>(false)
+  const [isSubmit, setIsSubmit] = useState<boolean>(false)
     const [user, setUser] = useState<User>({
         firstName:"",
         lastName:"",
@@ -46,35 +50,55 @@ const RegisterForm = () => {
         city:"",
         neighborhood:"", 
         email:"",
-        idCardNumber:"",
-        dateOfExpedition: new Date(),
-        dateOfBirth: new Date(),
+        username:"",
         password:"",
         confirmPassword:"",
+        // idCardNumber:"",
+        // dateOfExpedition: new Date(),
+        // dateOfBirth: new Date(),
         // idCardFile: undefined,
         // Address
         // phone number
     })
 // console.log(user)
+  const { register, handleSubmit, control, formState:{errors} } = useForm({
+    defaultValues: {
+      firstName: user.firstName,
+        lastName: user.lastName,
+        phoneNumber: user.phoneNumber,
+        department: user.department,
+        city: user.city,
+        neighborhood: user.neighborhood,
+        email: user.email,
+        username: user.username,
+        // idCardNumber: user.idCardNumber,
+        // dateOfExpedition: user.dateOfExpedition,
+        // dateOfBirth: user.dateOfBirth,
+        password: user.password,
+        confirmPassword: user.confirmPassword,
+    }
+  });
+  console.log("errors", errors)
 const handleChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) =>{
 const {name, value} = e.currentTarget 
   setUser({...user, [name]:value})
 }
 
 
-
-    const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
-      e.preventDefault()
+//  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const onSubmit: SubmitHandler<User> = async (data) => {
+      // e.preventDefault()
       // Here firebase function will be called
-      setOnSubmit(!onSubmit)
+      console.log(data)
+      const response = await fetch(baseURL, {'method':'POST',})
+      setIsSubmit(!isSubmit)
 
 
         console.log(user.firstName.length)
     }
-// Validations coming soon
   return (
     <>
-    {/* <Header/> */}
+    {/*//! <Header/> */}
     
     <div className='relative my-12 p-6  bg-sky-200 opacity-70 '>
       <Image
@@ -106,30 +130,29 @@ const {name, value} = e.currentTarget
             onClick={()=>setIsPersonalDataClicked(!isPersonalDataClicked)}
              className='border-2 rounded border-sky-500'/>
             </div>)}
+
+   {/* //!          Formulary */}
      <form 
-     onSubmit={handleSubmit}
+     onSubmit={handleSubmit(onSubmit)}
      className={`${!isPersonalDataClicked && 'hidden'} w-72 sm:w-full max-w-lg mx-auto `}>
   
   <div className="flex flex-wrap mx-auto justify-center  mb-6">
- {/* { PersonalDataForm.map(field => ( */}
- {/* <> */}
+
    <div className="transition duration-100
                         transform hover:scale-105 w-full rounded-xl text-md md:w-1/2 px-3 mb-6 md:mb-0 hover:underline hover:decoration-sky-600 font-semibold hover:font-normal ">
       <label className="block uppercase tracking-wide text-gray-700 text-xs pt-2 pl-2 bg-white" htmlFor="grid-first-name">
        Nombres
       </label>
       <input
-      name='firstName'
-      required
+      {...register("firstName", { 
+        required: "Nombre es requerido",
+        minLength:2,
+        maxLength: 20 
+      })}
+      id='first_name'
       value={user.firstName}
       onChange={handleChange}
-      className={`  w-full border-solid border-b border-black text-gray-700  ${onSubmit&&'border-red-500'}  py-3 px-4 mb-3 leading-tight focus:outline-none bg-slate-200 hover:bg-white font-normal`} id="grid-first-name" type="text" placeholder="Jane"/>
-      {onSubmit ? 
-        (user.firstName.length === 0) ? 
-        (<p className="text-red-500 text-xs italic">Please fill out this field.</p>) :
-        (<></>)  :
-        ('')
-      }
+      className={`  w-full border-solid border-b border-black text-gray-700  ${isSubmit&&'border-red-500'}  py-3 px-4 mb-3 leading-tight focus:outline-none bg-slate-200 hover:bg-white font-normal`} type="text" placeholder="Jane"/>
     </div>
     
     <div className="w-full md:w-1/2 px-3 transition duration-100   
@@ -138,12 +161,43 @@ const {name, value} = e.currentTarget
         Apellidos
       </label>
       <input 
-       name='lastName'
-       required
+        {...register("username", { 
+          required: "Nombre de usuario es requerido. Debe tener al menos 8 caracteres entre mayusculas, minusculas, numeros y al menos un caracter especial", minLength:2, maxLength:15, pattern: /^[A-Za-z]+$/i })}
+       id='last_name'
       value={user.lastName}
       onChange={handleChange}
       className="
-      border-solid border-b border-black w-full  text-gray-700 font-normal py-3 px-4 leading-tight focus:outline-none bg-slate-200 hover:bg-white " id="grid-last-name" type="text" placeholder="Doe"/>
+      border-solid border-b border-black w-full  text-gray-700 font-normal py-3 px-4 leading-tight focus:outline-none bg-slate-200 hover:bg-white" type="text" placeholder="Doe"/>
+    
+        </div>
+    <div className="w-full md:w-1/2 px-3 transition duration-100   
+                        transform hover:scale-105 hover:underline rounded text-md hover:decoration-sky-600 font-semibold hover:font-normal">
+      <label className="block uppercase tracking-wide  text-gray-700 text-xs pt-2 pl-2 bg-white" htmlFor="grid-last-name">
+        Apellidos
+      </label>
+      <input 
+
+       {...register("lastName", { required: "apellido es requerido", minLength:2, maxLength:15})}
+       id='last_name'
+      value={user.lastName}
+      onChange={handleChange}
+      className="
+      border-solid border-b border-black w-full  text-gray-700 font-normal py-3 px-4 leading-tight focus:outline-none bg-slate-200 hover:bg-white" type="text" placeholder="Doe"/>
+    
+        </div>
+    <div className="w-full md:w-1/2 px-3 transition duration-100   
+                        transform hover:scale-105 hover:underline rounded text-md hover:decoration-sky-600 font-semibold hover:font-normal">
+      <label className="block uppercase tracking-wide  text-gray-700 text-xs pt-2 pl-2 bg-white" htmlFor="grid-last-name">
+        Contraseña
+      </label>
+      <input 
+
+       {...register("password", { required: "password is required", minLength:2, maxLength:15, pattern: /^[A-Za-z]+$/i })}
+       id='password'
+      value={user.lastName}
+      onChange={handleChange}
+      className="
+      border-solid border-b border-black w-full  text-gray-700 font-normal py-3 px-4 leading-tight focus:outline-none bg-slate-200 hover:bg-white" type="text" placeholder="Doe"/>
     
         </div>
       <div className="flex w-full items-center justify-center mx-auto my-8  mb-2">
@@ -193,17 +247,11 @@ const {name, value} = e.currentTarget
         Barrio
       </label>
       <input
-      name='Neighborhood'
-      required
+      name='phoneNumber'
+      
       value={user.phoneNumber}
       onChange={handleChange}
-      className={`  w-full border-solid border-b border-black text-gray-700  ${onSubmit&&'border-red-500'}  py-3 px-4 mb-3 leading-tight bg-slate-200 hover:bg-white`} id="grid-first-name" type="text" placeholder="Jane"/>
-      {onSubmit ? 
-        (user.firstName.length === 0) ? 
-        (<p className="text-red-500 text-xs italic">Please fill out this field.</p>) :
-      (<></>)  :
-      ('')
-         }
+      className={`  w-full border-solid border-b border-black text-gray-700  ${isSubmit&&'border-red-500'}  py-3 px-4 mb-3 leading-tight bg-slate-200 hover:bg-white`} id="grid-first-name" type="text" placeholder="Jane"/>
     </div>
     <div className='border-2 w-full flex flex-wrap border-slate-900'>
     <div className="transition duration-100
@@ -213,11 +261,11 @@ const {name, value} = e.currentTarget
       </label> */}
       <input
       name='Neighborhood'
-      required
+      
       value="user.isBenefeciary"
       onChange={handleChange}
-      className={` text-gray-700  ${onSubmit&&'border-red-500'}   mb-3 leading-tight bg-slate-200 hover:bg-white`} id="grid-first-name" type="checkbox" placeholder="Jane" /> weed
-      {onSubmit ? 
+      className={` text-gray-700  ${isSubmit&&'border-red-500'}   mb-3 leading-tight bg-slate-200 hover:bg-white`} id="grid-first-name" type="checkbox" placeholder="Jane" /> weed
+      {isSubmit ? 
         (user.firstName.length === 0) ? 
         (<p className="text-red-500 text-xs italic">Please fill out this field.</p>) :
       (<></>)  :
@@ -230,17 +278,11 @@ const {name, value} = e.currentTarget
         Tiene Beneficiarios
       </label> */}
         <input
-      name='Neighborhood'
-      required
+      name='isBeneficiary'
+      
       value="user.isBenefeciary"
       onChange={handleChange}
-      className={` text-gray-700  ${onSubmit&&'border-red-500'}   mb-3 leading-tight bg-slate-200 hover:bg-white`} id="grid-first-name" type="checkbox" placeholder="Jane" /> pglo
-      {onSubmit ? 
-        (user.firstName.length === 0) ? 
-        (<p className="text-red-500 text-xs italic">Please fill out this field.</p>) :
-        (<></>)  :
-        ('')
-      }
+      className={` text-gray-700  ${isSubmit&&'border-red-500'}   mb-3 leading-tight bg-slate-200 hover:bg-white`} id="grid-first-name" type="checkbox" placeholder="Jane" /> pglo
     </div>
     </div>
     <div className='my-auto pt-4 mt-2 hover:text-slate-900'>
@@ -252,7 +294,6 @@ const {name, value} = e.currentTarget
     </div>
 </div>
 <button
-
 type="submit"
 className='transition duration-100
           transform hover:scale-125 w-full text-center justify-center flex px-2 rounded-md mx-auto py-4 text-white font-bold bg-gradient-to-r from-[#0856c5] to-[#07bfff] tracking-widest hover:tracking-[6px]'>REGISTRARSE</button>

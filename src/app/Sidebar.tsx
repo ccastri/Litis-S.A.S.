@@ -9,7 +9,7 @@ import Image from 'next/image';
 import Carrousel from 'components/Carrousel';
 import Link from 'next/link';
 const Sidebar = () => {
-    const [isOpen, setIsOpen] = useState(true)
+    const [isOpen, setIsOpen] = useState<boolean>(true)
 
      const HomeRef = useRef<null | HTMLDivElement>(null)
   return (
@@ -22,7 +22,6 @@ const Sidebar = () => {
           <MenuIcon 
           onClick={()=> setIsOpen(!isOpen)}
           className={` z-10 h-10 mx-8 transition duration-100 transform hover:scale-125 hover:text-white`} />
-         
 {/* <> */}
 
           <Image
