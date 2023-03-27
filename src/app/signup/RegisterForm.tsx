@@ -40,7 +40,7 @@ export interface User {
 }
 
 const RegisterForm = () => {
-  const [isPersonalDataClicked, setIsPersonalDataClicked] = useState<boolean>(false)
+  const [isPersonalDataClicked, setIsPersonalDataClicked] = useState<boolean>(true)
   const [isSubmit, setIsSubmit] = useState<boolean>(false)
     const [user, setUser] = useState<User>({
         firstName:"",
@@ -90,17 +90,17 @@ const {name, value} = e.currentTarget
       // e.preventDefault()
       // Here firebase function will be called
       console.log(data)
-      const response = await fetch(baseURL, {'method':'POST',})
-      setIsSubmit(!isSubmit)
+      // const response = await fetch(baseURL, {'method':'POST',})
+      // setIsSubmit(!isSubmit)
 
 
-        console.log(user.firstName.length)
+        // console.log(user.firstName.length)
     }
   return (
     <>
     {/*//! <Header/> */}
     
-    <div className='relative my-12 p-6  bg-sky-200 opacity-70 '>
+    <div className='relative my-12 p-6 text-slate-700  bg-sky-200 opacity-70 '>
       <Image
       src='/registration-form-bg.png'
       alt='Register form bg'
@@ -121,86 +121,154 @@ const {name, value} = e.currentTarget
           object-fit='contain'
           alt=''/>
           </div>
-          {!isPersonalDataClicked &&(
+          {/* //! Wrapper */}
+          {/* {!isPersonalDataClicked &&(
           <div 
           className='flex space-x-2 rounded justify-between p-4 hover:text-white bg-sky-100 border-2 hover:bg-blue-500 border-sky-700 items-center'
           >
             <h1 className='font-bold'>Haz click aqui para empezar a completar el formulario con tus datos personales</h1>
             <KeyboardArrowDownIcon
             onClick={()=>setIsPersonalDataClicked(!isPersonalDataClicked)}
-             className='border-2 rounded border-sky-500'/>
-            </div>)}
+             className='border-2 rounded border-sky-500 hover:text-slate-700'/>
+            </div>)} */}
 
    {/* //!          Formulary */}
      <form 
      onSubmit={handleSubmit(onSubmit)}
-     className={`${!isPersonalDataClicked && 'hidden'} w-72 sm:w-full max-w-lg mx-auto `}>
-  
-  <div className="flex flex-wrap mx-auto justify-center  mb-6">
-
-   <div className="transition duration-100
-                        transform hover:scale-105 w-full rounded-xl text-md md:w-1/2 px-3 mb-6 md:mb-0 hover:underline hover:decoration-sky-600 font-semibold hover:font-normal ">
-      <label className="block uppercase tracking-wide text-gray-700 text-xs pt-2 pl-2 bg-white" htmlFor="grid-first-name">
-       Nombres
-      </label>
-      <input
-      {...register("firstName", { 
-        required: "Nombre es requerido",
-        minLength:2,
-        maxLength: 20 
-      })}
-      id='first_name'
-      value={user.firstName}
-      onChange={handleChange}
-      className={`  w-full border-solid border-b border-black text-gray-700  ${isSubmit&&'border-red-500'}  py-3 px-4 mb-3 leading-tight focus:outline-none bg-slate-200 hover:bg-white font-normal`} type="text" placeholder="Jane"/>
-    </div>
-    
+     className={`${!isPersonalDataClicked && 'hidden'} w-72 sm:w-full max-w-lg mx-auto `}
+     >
+      <div className="flex flex-wrap mx-auto justify-center  mb-2">
+        <div className="transition duration-100
+                        transform hover:scale-105 w-full rounded-xl text-md md:w-1/2 px-3 mb-2 md:mb-0 hover:underline hover:decoration-sky-600 font-semibold hover:font-normal ">
+          <label className="block uppercase tracking-wide text-gray-700 text-xs pt-2 pl-2 bg-white" htmlFor="grid-first-name">
+            Nombres
+          </label>
+          <input
+            {...register("firstName", { 
+            required: "Nombre es requerido",
+            minLength:2,
+            maxLength: 20 
+              }
+            )}
+            id='first_name'
+            value={user.firstName}
+            onChange={handleChange}
+            className={`  w-full border-solid border-b border-black text-gray-700  ${isSubmit&&'border-red-500'}  py-3 px-4 leading-tight focus:outline-none bg-slate-200 hover:bg-white font-normal`} 
+            type="text"
+            placeholder="Jane"
+          />
+        </div>
+          {errors.firstName?.message && (<span className='text-red-500 font-bold'>{errors.firstName?.message}</span>)}
+          {errors.firstName && errors.firstName?.type === 'minLength' && <span className='text-red-500 font-bold'>Nombre demasiado corto</span>}
+          {errors.firstName && errors.firstName?.type === 'maxLength' && <span className='text-red-500 font-bold'>Nombre demasiado largo</span>}
+        <div className="w-full md:w-1/2 px-3 transition duration-100 mb-2  
+                        transform hover:scale-105 hover:underline rounded text-md hover:decoration-sky-600 font-semibold hover:font-normal">
+          <label className="block uppercase tracking-wide  text-gray-700 text-xs pt-2 pl-2 bg-white" htmlFor="grid-last-name">
+            Apellidos
+          </label>
+          <input 
+            {...register("lastName", { 
+              required: "Por favor digite su apellido",
+              minLength:2,
+              maxLength:15,
+              // pattern: /^[A-Za-z]+$/i
+              }
+            )}
+            id='last_name'
+            value={user.lastName}
+            onChange={handleChange}
+            className="border-solid border-b border-black w-full  text-gray-700 font-normal py-3 px-4 leading-tight focus:outline-none bg-slate-200 hover:bg-white" 
+            type="text"
+            placeholder="Doe"
+            /> 
+          
+        </div>
+            {errors.lastName?.message && (<span className='text-red-500 font-bold'>{errors.lastName?.message}</span>)}
+            {errors.lastName && errors.lastName?.type === 'minLength' && <span className='text-red-500 font-bold'>Nombre demasiado corto</span>}
+            {errors.lastName && errors.lastName?.type === 'maxLength' && <span className='text-red-500 font-bold'>Nombre demasiado largo</span>}
+        <div className="w-full md:w-1/2 px-3 transition duration-100 
+                        transform hover:scale-105 hover:underline rounded text-md hover:decoration-sky-600 font-semibold hover:font-normal">
+          <label className="block uppercase tracking-wide  text-gray-700 text-xs pt-2 pl-2 bg-white" htmlFor="grid-last-name">
+            Nombre de usuario
+          </label>
+          <input 
+            {...register("username", { 
+              required: "Nombre de usuario es requerido. al menos 8 caracteres: mayusculas, minusculas, numeros un caracter especial",
+              minLength: 8,
+              maxLength:16,
+              // pattern: /^[A-Za-z]+$/i
+              }
+            )}
+            id='username'
+            value={user.username}
+            onChange={handleChange}
+            className="border-solid border-b border-black w-full  text-gray-700 font-normal py-3 px-4 leading-tight focus:outline-none bg-slate-200 hover:bg-white" 
+            type="text"
+            placeholder="Tu_usuario123"
+            /> 
+          
+        </div>
+            {errors.username?.message && (<span className='text-red-500 font-bold m-2'>{errors.username?.message}</span>)}
+            {errors.username && errors.username?.type === 'minLength' && <span className='text-red-500 font-bold'>Nombre de usuario demasiado corto</span>}
+            {errors.username && errors.username?.type === 'maxLength' && <span className='text-red-500 font-bold'>Nombrede usuario demasiado largo</span>}
     <div className="w-full md:w-1/2 px-3 transition duration-100   
                         transform hover:scale-105 hover:underline rounded text-md hover:decoration-sky-600 font-semibold hover:font-normal">
       <label className="block uppercase tracking-wide  text-gray-700 text-xs pt-2 pl-2 bg-white" htmlFor="grid-last-name">
-        Apellidos
+        Email
       </label>
       <input 
-        {...register("username", { 
-          required: "Nombre de usuario es requerido. Debe tener al menos 8 caracteres entre mayusculas, minusculas, numeros y al menos un caracter especial", minLength:2, maxLength:15, pattern: /^[A-Za-z]+$/i })}
-       id='last_name'
-      value={user.lastName}
-      onChange={handleChange}
-      className="
-      border-solid border-b border-black w-full  text-gray-700 font-normal py-3 px-4 leading-tight focus:outline-none bg-slate-200 hover:bg-white" type="text" placeholder="Doe"/>
-    
+          {...register("email", { 
+            required: "Por favor ingrese su direccion de correo electrónico",
+            minLength:15, 
+            maxLength:50,  
+            pattern: {
+              value:/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+              message: 'Email tine que ser un formato valido'
+            }             
+            })
+          }
+          id='email'
+          value={user.email}
+          onChange={handleChange}
+          className="
+          border-solid border-b border-black w-full  text-gray-700 font-normal py-3 px-4 leading-tight focus:outline-none bg-slate-200 hover:bg-white" type="text" placeholder="Doe"
+          />
+          
         </div>
-    <div className="w-full md:w-1/2 px-3 transition duration-100   
-                        transform hover:scale-105 hover:underline rounded text-md hover:decoration-sky-600 font-semibold hover:font-normal">
-      <label className="block uppercase tracking-wide  text-gray-700 text-xs pt-2 pl-2 bg-white" htmlFor="grid-last-name">
-        Apellidos
-      </label>
-      <input 
-
-       {...register("lastName", { required: "apellido es requerido", minLength:2, maxLength:15})}
-       id='last_name'
-      value={user.lastName}
-      onChange={handleChange}
-      className="
-      border-solid border-b border-black w-full  text-gray-700 font-normal py-3 px-4 leading-tight focus:outline-none bg-slate-200 hover:bg-white" type="text" placeholder="Doe"/>
-    
-        </div>
+{/* //!  Errores email */}
+    {errors.email?.message && (<p className='text-red-500 font-bold'>{errors.email?.message}</p>)}
+    {errors.email && errors.email.type === 'minLength' && (<p className='text-red-500 font-bold'>Email demasiado corto</p> )}
+    {errors.email && errors.email.type === 'maxLength' && (<p className='text-red-500 font-bold'>Email demasiado largo</p> )}
+      
     <div className="w-full md:w-1/2 px-3 transition duration-100   
                         transform hover:scale-105 hover:underline rounded text-md hover:decoration-sky-600 font-semibold hover:font-normal">
       <label className="block uppercase tracking-wide  text-gray-700 text-xs pt-2 pl-2 bg-white" htmlFor="grid-last-name">
         Contraseña
       </label>
       <input 
-
-       {...register("password", { required: "password is required", minLength:2, maxLength:15, pattern: /^[A-Za-z]+$/i })}
-       id='password'
-      value={user.lastName}
-      onChange={handleChange}
-      className="
-      border-solid border-b border-black w-full  text-gray-700 font-normal py-3 px-4 leading-tight focus:outline-none bg-slate-200 hover:bg-white" type="text" placeholder="Doe"/>
-    
-        </div>
-      <div className="flex w-full items-center justify-center mx-auto my-8  mb-2">
+        {...register("password", {
+            required: "Por favor ingrese una contraseña valida",
+            minLength:2, 
+            maxLength:15, 
+            pattern: {
+              value: /^(?=.*[0-9])(?=.*[!@#$%^&*.,])[a-zA-Z0-9!@#$%^&*.,]{6,16}$/,
+              message: 'Al menos 8 caracteres: mayusculas, minusculas, numeros un caracter especial'
+            }
+          })
+        }
+        id='password'
+        value={user.password}
+        onChange={handleChange}
+        className="
+        border-solid border-b border-black w-full  text-gray-700 font-normal py-3 px-4 leading-tight focus:outline-none bg-slate-200 hover:bg-white" 
+        type="text" 
+        placeholder="Doe"
+      />
+    </div>
+      {errors.password?.message && (<span className='text-red-500 font-bold mx-2 p-2'>{errors.password?.message}</span>)}
+      {errors.password && errors.password?.type === 'minLength' && <span className='text-red-500 font-bold'>Contraseña demasiado corta</span>}
+      {errors.password && errors.password?.type === 'maxLength' && <span className='text-red-500 font-bold'>Contraseña demasiado larga</span>}
+    <div className="flex w-full items-center justify-center mx-auto my-8  mb-2">
     <div className="px-3 w-[92%] md:w-1/3 rounded  md:mb-0 transition duration-100
           transform hover:scale-105 text-gray-700 text-xs bg-white pt-2 pl-2 hover:underline text-md hover:decoration-sky-600 font-semibold hover:font-normal">
       <label className="block uppercase tracking-wide " htmlFor="grid-city">
