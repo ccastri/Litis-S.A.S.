@@ -171,7 +171,6 @@ const {name, value} = e.currentTarget
               required: "Por favor digite su apellido",
               minLength:2,
               maxLength:15,
-              // pattern: /^[A-Za-z]+$/i
               }
             )}
             id='last_name'
@@ -186,8 +185,32 @@ const {name, value} = e.currentTarget
             {errors.lastName?.message && (<span className='text-red-500 font-bold'>{errors.lastName?.message}</span>)}
             {errors.lastName && errors.lastName?.type === 'minLength' && <span className='text-red-500 font-bold'>Nombre demasiado corto</span>}
             {errors.lastName && errors.lastName?.type === 'maxLength' && <span className='text-red-500 font-bold'>Nombre demasiado largo</span>}
-        <div className="w-full md:w-1/2 px-3 transition duration-100 
+         <div className="w-full md:w-1/2 px-3 transition duration-100 mb-2  
                         transform hover:scale-105 hover:underline rounded text-md hover:decoration-sky-600 font-semibold hover:font-normal">
+          <label className="block uppercase tracking-wide  text-gray-700 text-xs pt-2 pl-2 bg-white" htmlFor="grid-last-name">
+            Numero de telefono
+          </label>
+          <input 
+            {...register("phoneNumber", { 
+              required: "Por favor digite su numero de telefono",
+              minLength:10,
+              maxLength:10,
+            }
+            )}
+            id='last_name'
+            value={user.phoneNumber}
+            onChange={handleChange}
+            className="border-solid border-b border-black w-full  text-gray-700 font-normal py-3 px-4 leading-tight focus:outline-none bg-slate-200 hover:bg-white" 
+            type="text"
+            placeholder="Doe"
+            /> 
+          
+        </div>
+            {errors.phoneNumber?.message && (<span className='text-red-500 font-bold'>{errors.phoneNumber?.message}</span>)}
+            {errors.phoneNumber && errors.phoneNumber?.type === 'minLength' && <span className='text-red-500 font-bold'>Nombre demasiado corto</span>}
+            {errors.phoneNumber && errors.phoneNumber?.type === 'maxLength' && <span className='text-red-500 font-bold'>Nombre demasiado largo</span>}
+        <div className="w-full md:w-1/2 px-3 transition duration-100 
+                        transform hover:scale-105 hover:underline rounded text-md hover:decoration-sky-600 font-semibold hover:font-normal mb-2">
           <label className="block uppercase tracking-wide  text-gray-700 text-xs pt-2 pl-2 bg-white" htmlFor="grid-last-name">
             Nombre de usuario
           </label>
@@ -196,7 +219,6 @@ const {name, value} = e.currentTarget
               required: "Nombre de usuario es requerido. al menos 8 caracteres: mayusculas, minusculas, numeros un caracter especial",
               minLength: 8,
               maxLength:16,
-              // pattern: /^[A-Za-z]+$/i
               }
             )}
             id='username'
@@ -212,7 +234,7 @@ const {name, value} = e.currentTarget
             {errors.username && errors.username?.type === 'minLength' && <span className='text-red-500 font-bold'>Nombre de usuario demasiado corto</span>}
             {errors.username && errors.username?.type === 'maxLength' && <span className='text-red-500 font-bold'>Nombrede usuario demasiado largo</span>}
     <div className="w-full md:w-1/2 px-3 transition duration-100   
-                        transform hover:scale-105 hover:underline rounded text-md hover:decoration-sky-600 font-semibold hover:font-normal">
+                        transform hover:scale-105 hover:underline rounded text-md hover:decoration-sky-600 font-semibold hover:font-normal mb-2">
       <label className="block uppercase tracking-wide  text-gray-700 text-xs pt-2 pl-2 bg-white" htmlFor="grid-last-name">
         Email
       </label>
@@ -236,9 +258,9 @@ const {name, value} = e.currentTarget
           
         </div>
 {/* //!  Errores email */}
-    {errors.email?.message && (<p className='text-red-500 font-bold'>{errors.email?.message}</p>)}
-    {errors.email && errors.email.type === 'minLength' && (<p className='text-red-500 font-bold'>Email demasiado corto</p> )}
-    {errors.email && errors.email.type === 'maxLength' && (<p className='text-red-500 font-bold'>Email demasiado largo</p> )}
+        {errors.email?.message && (<p className='text-red-500 font-bold'>{errors.email?.message}</p>)}
+        {errors.email && errors.email.type === 'minLength' && (<p className='text-red-500 font-bold'>Email demasiado corto</p> )}
+        {errors.email && errors.email.type === 'maxLength' && (<p className='text-red-500 font-bold'>Email demasiado largo</p> )}
       
     <div className="w-full md:w-1/2 px-3 transition duration-100   
                         transform hover:scale-105 hover:underline rounded text-md hover:decoration-sky-600 font-semibold hover:font-normal">
@@ -268,18 +290,20 @@ const {name, value} = e.currentTarget
       {errors.password?.message && (<span className='text-red-500 font-bold mx-2 p-2'>{errors.password?.message}</span>)}
       {errors.password && errors.password?.type === 'minLength' && <span className='text-red-500 font-bold'>Contraseña demasiado corta</span>}
       {errors.password && errors.password?.type === 'maxLength' && <span className='text-red-500 font-bold'>Contraseña demasiado larga</span>}
-    <div className="flex w-full items-center justify-center mx-auto my-8  mb-2">
+    <div className="flex w-full items-center justify-center mx-auto  my-2">
     <div className="px-3 w-[92%] md:w-1/3 rounded  md:mb-0 transition duration-100
           transform hover:scale-105 text-gray-700 text-xs bg-white pt-2 pl-2 hover:underline text-md hover:decoration-sky-600 font-semibold hover:font-normal">
       <label className="block uppercase tracking-wide " htmlFor="grid-city">
         Ciudad
       </label>
           <select
-           name='city'
-           value={user.city}
-           
-           onChange={handleChange}
-           className="block appearance-none w-full  border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none bg-slate-200 hover:bg-white" id="grid-state">
+            {...register("city", { 
+              required: "Seleccione su ciudad de residencia",
+              }
+            )}
+            value={user.city}
+            onChange={handleChange}
+            className="block appearance-none w-full  border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none bg-slate-200 hover:bg-white" id="grid-state">
           {Cities.map( city=>(
             <option 
             key={city.city}
@@ -288,17 +312,23 @@ const {name, value} = e.currentTarget
         </select>
               </div>
     </div>
+    {errors.city?.message && (<span className='text-red-500 font-bold mx-2 p-2'>{errors.city?.message}</span>)}
     <div className=" transition duration-100
-                        transform hover:scale-105 w-[92%] md:w-1/3 rounded  px-3 my-8 md:mb-0 text-xs bg-white pt-2 pl-2 hover:underline text-md hover:decoration-sky-600 font-semibold hover:font-normal">
+                        transform hover:scale-105 w-[92%] md:w-1/3 rounded  px-3 mt-6 mb-2 md:mb-0 text-xs bg-white pt-2 pl-2 hover:underline text-md hover:decoration-sky-600 font-semibold hover:font-normal">
       <label className="
       block uppercase tracking-wide text-gray-700 text-xs font-semibold  bg-white pt-2 pl-2" htmlFor="grid-state">
         Departamento
       </label>
 
-        <select className="block appearance-none w-full  border-b border-black text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none bg-slate-200 hover:bg-white" id="grid-state"
-         name='department'
-         value={user.department}
-         onChange={handleChange}
+        <select 
+          className="block appearance-none w-full  border-b border-black text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none bg-slate-200 hover:bg-white" id="grid-state"
+          // name='department'
+          {...register("department", { 
+            required: "Seleccione su departamento de residencia",
+            }
+          )}
+          value={user.department}
+          onChange={handleChange}
          >
           {Departments.map( department=>(
             <option 
@@ -307,44 +337,40 @@ const {name, value} = e.currentTarget
             >{department.Department}</option>
             ))}
         </select>
-
     </div>
-    <div className="transition duration-100
-                        transform hover:scale-105 w-full focus:text-xs text-md md:w-1/2 px-3 mb-6 md:mb-0 ">
-      <label className="block hover:text-xs text-md uppercase tracking-wide text-gray-700 text-xs pt-2 pl-2 bg-white" htmlFor="grid-first-name">
+        {errors.department?.message && (<span className='text-red-500 font-bold mx-2 p-2'>{errors.department?.message}</span>)}
+    <div className= {` transition duration-100
+                        transform hover:scale-105 w-full focus:text-xs text-md md:w-1/2 px-3 md:mb-0 `}>
+      <label className= {`block hover:text-xs text-md uppercase tracking-wide text-gray-700 text-xs pt-2 pl-2 bg-white  ${errors.neighborhood &&'border-x-2 border-red-500 border-t-2 text-red-500 font-semibold '}`} htmlFor="grid-first-name">
         Barrio
       </label>
       <input
-      name='phoneNumber'
-      
-      value={user.phoneNumber}
+        {...register("neighborhood", { 
+          required: "Por favor digite el barrio donde reside",
+            minLength:2,
+            maxLength:15,
+          }
+        )}
+      value={user.neighborhood}
       onChange={handleChange}
-      className={`  w-full border-solid border-b border-black text-gray-700  ${isSubmit&&'border-red-500'}  py-3 px-4 mb-3 leading-tight bg-slate-200 hover:bg-white`} id="grid-first-name" type="text" placeholder="Jane"/>
+      className={`   ${errors.neighborhood &&'border-x-2 border-red-500 border-b-2'} border-solid border-b border-black w-full  text-gray-700 font-normal py-3 px-4 leading-tight focus:outline-none bg-slate-200 hover:bg-white`} id="grid-first-name" type="text" placeholder="Jane"/>
     </div>
-    <div className='border-2 w-full flex flex-wrap border-slate-900'>
+      {errors.neighborhood?.message && (<span className='text-red-500 text-xs font-bold mx-2 p-2'>{errors.neighborhood?.message}</span>)}
+      {errors.neighborhood && errors.neighborhood?.type === 'minLength' && <span className='text-red-500 text-xs font-bold'>Nombre del barrio demasiado corta</span>}
+      {errors.neighborhood && errors.neighborhood?.type === 'maxLength' && <span className='text-red-500 text-xs font-bold'>Nombre del barrio demasiado larga</span>}
+    {/* <div className='border-2 w-full flex flex-wrap border-slate-900'>
     <div className="transition duration-100
                         transform hover:scale-105 w-full focus:text-xs text-md md:w-1/2 md:mb-0 ">
-      {/* <label className="block hover:text-xs text-md uppercase tracking-wide text-gray-700 text-xs pt-2 pl-2 bg-white" htmlFor="grid-first-name">
-        Tiene Beneficiarios
-      </label> */}
+
       <input
       name='Neighborhood'
       
       value="user.isBenefeciary"
       onChange={handleChange}
-      className={` text-gray-700  ${isSubmit&&'border-red-500'}   mb-3 leading-tight bg-slate-200 hover:bg-white`} id="grid-first-name" type="checkbox" placeholder="Jane" /> weed
-      {isSubmit ? 
-        (user.firstName.length === 0) ? 
-        (<p className="text-red-500 text-xs italic">Please fill out this field.</p>) :
-      (<></>)  :
-      ('')
-         }
+      className={` text-gray-700   mb-3 leading-tight bg-slate-200 hover:bg-white`} id="grid-first-name" type="checkbox" placeholder="Jane" /> weed
     </div>
     <div className="transition duration-100 border-2 border-slate-900
                         transform hover:scale-105 w-full focus:text-xs text-md md:w-1/2 md:mb-0 ">
-      {/* <label className="block hover:text-xs text-md uppercase tracking-wide text-gray-700 text-xs pt-2 pl-2 bg-white" htmlFor="grid-first-name">
-        Tiene Beneficiarios
-      </label> */}
         <input
       name='isBeneficiary'
       
@@ -352,7 +378,7 @@ const {name, value} = e.currentTarget
       onChange={handleChange}
       className={` text-gray-700  ${isSubmit&&'border-red-500'}   mb-3 leading-tight bg-slate-200 hover:bg-white`} id="grid-first-name" type="checkbox" placeholder="Jane" /> pglo
     </div>
-    </div>
+    </div> */}
     <div className='my-auto pt-4 mt-2 hover:text-slate-900'>
     
     <KeyboardArrowUpIcon    sx={{fontSize: '40px'}}
