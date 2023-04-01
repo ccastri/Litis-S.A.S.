@@ -31,6 +31,7 @@ export interface User {
         confirmPassword:string,
         city:string,
         neighborhood: string,
+        tos_is_clicked: boolean,
         // idCardNumber:string,
         // dateOfExpedition:Date,
         // dateOfBirth: Date,
@@ -53,6 +54,7 @@ const RegisterForm = () => {
         username:"",
         password:"",
         confirmPassword:"",
+        tos_is_clicked: false
         // idCardNumber:"",
         // dateOfExpedition: new Date(),
         // dateOfBirth: new Date(),
@@ -63,19 +65,20 @@ const RegisterForm = () => {
 // console.log(user)
   const { register, handleSubmit, control, formState:{errors} } = useForm({
     defaultValues: {
-      firstName: user.firstName,
+        firstName: user.firstName,
         lastName: user.lastName,
         phoneNumber: user.phoneNumber,
-        department: user.department,
-        city: user.city,
-        neighborhood: user.neighborhood,
         email: user.email,
         username: user.username,
+        password: user.password,
+        department: user.department,
+        confirmPassword: user.confirmPassword,
+        city: user.city,
+        neighborhood: user.neighborhood,
+        tos_is_clicked: user.tos_is_clicked
         // idCardNumber: user.idCardNumber,
         // dateOfExpedition: user.dateOfExpedition,
         // dateOfBirth: user.dateOfBirth,
-        password: user.password,
-        confirmPassword: user.confirmPassword,
     }
   });
   console.log("errors", errors)
@@ -90,7 +93,16 @@ const {name, value} = e.currentTarget
       // e.preventDefault()
       // Here firebase function will be called
       console.log(data)
-      // const response = await fetch(baseURL, {'method':'POST',})
+      setUser(data)
+      const response = await fetch(baseURL, {
+            'method':'POST',  headers : {
+            'Content-Type':'application/json'},
+                body: JSON.stringify({ user }),
+              })
+              console.log(user)
+  await response.json()
+        
+      console.log(response)
       // setIsSubmit(!isSubmit)
 
 
@@ -290,6 +302,34 @@ const {name, value} = e.currentTarget
       {errors.password?.message && (<span className='text-red-500 font-bold mx-2 p-2'>{errors.password?.message}</span>)}
       {errors.password && errors.password?.type === 'minLength' && <span className='text-red-500 font-bold'>Contraseña demasiado corta</span>}
       {errors.password && errors.password?.type === 'maxLength' && <span className='text-red-500 font-bold'>Contraseña demasiado larga</span>}
+    <div className="w-full md:w-1/2 px-3 transition duration-100   
+                        transform hover:scale-105 hover:underline rounded text-md hover:decoration-sky-600 font-semibold hover:font-normal">
+      <label className="block uppercase tracking-wide  text-gray-700 text-xs pt-2 pl-2 bg-white" htmlFor="grid-last-name">
+        Contraseña
+      </label>
+      <input 
+        {...register("confirmPassword", {
+            required: "Por favor ingrese una contraseña valida",
+            minLength:2, 
+            maxLength:15, 
+            pattern: {
+              value: /^(?=.*[0-9])(?=.*[!@#$%^&*.,])[a-zA-Z0-9!@#$%^&*.,]{6,16}$/,
+              message: 'Al menos 8 caracteres: mayusculas, minusculas, numeros un caracter especial'
+            }
+          })
+        }
+        id='passconfirmPasswordword'
+        value={user.confirmPassword}
+        onChange={handleChange}
+        className="
+        border-solid border-b border-black w-full  text-gray-700 font-normal py-3 px-4 leading-tight focus:outline-none bg-slate-200 hover:bg-white" 
+        type="password" 
+        placeholder="Doe"
+      />
+    </div>
+      {errors.password?.message && (<span className='text-red-500 font-bold mx-2 p-2'>{errors.confirmPassword?.message}</span>)}
+      {errors.confirmPassword && errors.confirmPassword?.type === 'minLength' && <span className='text-red-500 font-bold'>Contraseña demasiado corta</span>}
+      {errors.password && errors.confirmPassword?.type === 'maxLength' && <span className='text-red-500 font-bold'>Contraseña demasiado larga</span>}
     <div className="flex w-full items-center justify-center mx-auto  my-2">
     <div className="px-3 w-[92%] md:w-1/3 rounded  md:mb-0 transition duration-100
           transform hover:scale-105 text-gray-700 text-xs bg-white pt-2 pl-2 hover:underline text-md hover:decoration-sky-600 font-semibold hover:font-normal">
@@ -358,17 +398,22 @@ const {name, value} = e.currentTarget
       {errors.neighborhood?.message && (<span className='text-red-500 text-xs font-bold mx-2 p-2'>{errors.neighborhood?.message}</span>)}
       {errors.neighborhood && errors.neighborhood?.type === 'minLength' && <span className='text-red-500 text-xs font-bold'>Nombre del barrio demasiado corta</span>}
       {errors.neighborhood && errors.neighborhood?.type === 'maxLength' && <span className='text-red-500 text-xs font-bold'>Nombre del barrio demasiado larga</span>}
-    {/* <div className='border-2 w-full flex flex-wrap border-slate-900'>
-    <div className="transition duration-100
+    <div className='border-2 w-full flex flex-wrap border-slate-900'>
+    <div className="flex transition duration-100
                         transform hover:scale-105 w-full focus:text-xs text-md md:w-1/2 md:mb-0 ">
+    <label className= {`block hover:text-xs text-md uppercase tracking-wide text-gray-700 text-xs pt-2 pl-2 bg-white  ${errors.neighborhood &&'border-x-2 border-red-500 border-t-2 text-red-500 font-semibold '}`} htmlFor="grid-first-name">
+      Acepto la politica de terminos y condiciones
+      </label>
 
       <input
-      name='Neighborhood'
-      
-      value="user.isBenefeciary"
+      // name='Neighborhood'
+      {...register('tos_is_clicked')}
+      // value="user.isBenefeciary"
       onChange={handleChange}
       className={` text-gray-700   mb-3 leading-tight bg-slate-200 hover:bg-white`} id="grid-first-name" type="checkbox" placeholder="Jane" /> weed
     </div>
+    </div>
+    {/*
     <div className="transition duration-100 border-2 border-slate-900
                         transform hover:scale-105 w-full focus:text-xs text-md md:w-1/2 md:mb-0 ">
         <input
@@ -376,7 +421,10 @@ const {name, value} = e.currentTarget
       
       value="user.isBenefeciary"
       onChange={handleChange}
-      className={` text-gray-700  ${isSubmit&&'border-red-500'}   mb-3 leading-tight bg-slate-200 hover:bg-white`} id="grid-first-name" type="checkbox" placeholder="Jane" /> pglo
+      className={` text-gray-700  ${isSubmit&&'border-red-500'}   mb-3 leading-tight bg-slate-200 hover:bg-white`} 
+      id="grid-first-name" 
+      type="checkbox" 
+      placeholder="Jane" />
     </div>
     </div> */}
     <div className='my-auto pt-4 mt-2 hover:text-slate-900'>
@@ -401,30 +449,30 @@ className='transition duration-100
 export default RegisterForm
 
 
-//  <div className='px-3 mt-4 md:mb-0 transition duration-100
+{/* //  <div className='px-3 mt-4 md:mb-0 transition duration-100
 //                         transform hover:scale-105'>
 //         <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-zip">
 //             Fecha de nacimiento
 //         </label>
          
-//          <DatePicker
-//          className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
+//          <DatePicker */}
+{/* //          className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
 //          selected={user.dateOfBirth} onChange={(date: Date) => setUser({...user, dateOfBirth: date})} />
-//     </div>
+//     </div> */}
 
-//     <div className="w-full mt-4 md:w-1/2 px-3 transition duration-100
+{/* //     <div className="w-full mt-4 md:w-1/2 px-3 transition duration-100
 //                         transform hover:scale-105">
 //       <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-last-name">
 //         Email
 //       </label>
-//       <input 
-//         name='email'
+//       <input  */}
+{/* //         name='email'
 //       value={user.email}
 //       onChange={handleChange}
 //       className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="email" placeholder="tuemail@email.com"/>
-//     </div>
-//   </div>
-//   <div className="flex flex-wrap mb-6 transition duration-100
+//     </div> */}
+{/* //   </div> */}
+{/* //   <div className="flex flex-wrap mb-6 transition duration-100
 //                         transform hover:scale-105">
 //     <div className="w-full  transition duration-100
 //                         transform hover:scale-105">
@@ -475,4 +523,4 @@ export default RegisterForm
 //           <DatePicker
 //          className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
 //          selected={user.dateOfExpedition} onChange={(date: Date) => setUser({...user, dateOfExpedition: date})} />
-//     </div>
+//     </div> */}
