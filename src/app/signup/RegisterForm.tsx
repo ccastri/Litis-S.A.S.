@@ -2,6 +2,7 @@ import { Cities, Departments } from 'cities'
 import '../globals.css'
 
 // import { Cities, Departments } from 'UploadFiles'
+import axios from 'axios';
 import React, { ChangeEvent, FormEvent, useState } from 'react'
 import Image from 'next/image';
 
@@ -81,7 +82,7 @@ const RegisterForm = () => {
         // dateOfBirth: user.dateOfBirth,
     }
   });
-  console.log("errors", errors)
+  // console.log("errors", errors)
 const handleChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) =>{
 const {name, value} = e.currentTarget 
   setUser({...user, [name]:value})
@@ -90,23 +91,41 @@ const {name, value} = e.currentTarget
 
 //  const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const onSubmit: SubmitHandler<User> = async (data) => {
-      // e.preventDefault()
-      // Here firebase function will be called
-      console.log(data)
-      setUser(data)
-      const response = await fetch(baseURL, {
-            'method':'POST',  headers : {
-            'Content-Type':'application/json'},
-                body: JSON.stringify({ user }),
-              })
-              console.log(user)
-  await response.json()
+
+        axios.post(baseURL, data, {
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded',
+    'Access-Control-Allow-Origin': '*',
+  }
+}).then((response:any) => {
+  console.log(response.data);
+}).catch((error:any) => {
+  console.error(error);
+});
+
+        // const response = await fetch(baseURL, {
+        //   method:'POST', 
+        //   mode: "cors",
+        //   headers : {
+        //     'Content-Type':'application/x-www-form-urlencoded'
+        //   },
+        //   body: new URLSearchParams(user).toString(),
+        //   })
+        //     .then((res)=> res.json())
+        //     .then((dataa)=> console.log('Success:', dataa))
+        //     .catch((err)=> console.log('Error:', err))
+
+              // console.log(user)
+    //     const dataa = await response.json()
+    //     if(!response.ok){
+    //       console.log(dataa.description)
+    //       return
+    //     }
+    //     console.log(dataa)
+    // }catch(err){
+    //   console.log(err)
+    // }
         
-      console.log(response)
-      // setIsSubmit(!isSubmit)
-
-
-        // console.log(user.firstName.length)
     }
   return (
     <>
@@ -182,7 +201,7 @@ const {name, value} = e.currentTarget
             {...register("lastName", { 
               required: "Por favor digite su apellido",
               minLength:2,
-              maxLength:15,
+              maxLength:20,
               }
             )}
             id='last_name'
@@ -209,7 +228,7 @@ const {name, value} = e.currentTarget
               maxLength:10,
             }
             )}
-            id='last_name'
+            id='phoneNumber'
             value={user.phoneNumber}
             onChange={handleChange}
             className="border-solid border-b border-black w-full  text-gray-700 font-normal py-3 px-4 leading-tight focus:outline-none bg-slate-200 hover:bg-white" 
@@ -305,13 +324,13 @@ const {name, value} = e.currentTarget
     <div className="w-full md:w-1/2 px-3 transition duration-100   
                         transform hover:scale-105 hover:underline rounded text-md hover:decoration-sky-600 font-semibold hover:font-normal">
       <label className="block uppercase tracking-wide  text-gray-700 text-xs pt-2 pl-2 bg-white" htmlFor="grid-last-name">
-        Contraseña
+        Confirmar contraseña
       </label>
       <input 
         {...register("confirmPassword", {
             required: "Por favor ingrese una contraseña valida",
-            minLength:2, 
-            maxLength:15, 
+            minLength:8, 
+            maxLength:16, 
             pattern: {
               value: /^(?=.*[0-9])(?=.*[!@#$%^&*.,])[a-zA-Z0-9!@#$%^&*.,]{6,16}$/,
               message: 'Al menos 8 caracteres: mayusculas, minusculas, numeros un caracter especial'
