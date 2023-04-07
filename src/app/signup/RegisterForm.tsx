@@ -42,9 +42,10 @@ export interface User {
 }
 
 const RegisterForm = () => {
+  // ! Button is pressed (twice) idk what's going on jaja
   const [isPersonalDataClicked, setIsPersonalDataClicked] = useState<boolean>(true)
   const [isSubmit, setIsSubmit] = useState<boolean>(false)
-    const [user, setUser] = useState<User>({
+  const [user, setUser] = useState<User>({
         firstName:"",
         lastName:"",
         phoneNumber:"",
@@ -63,7 +64,7 @@ const RegisterForm = () => {
         // Address
         // phone number
     })
-// console.log(user)
+// ! UseForm and WTForm integration:
   const { register, handleSubmit, control, formState:{errors} } = useForm({
     defaultValues: {
         firstName: user.firstName,
@@ -82,15 +83,13 @@ const RegisterForm = () => {
         // dateOfBirth: user.dateOfBirth,
     }
   });
-  // console.log("errors", errors)
+
 const handleChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) =>{
 const {name, value} = e.currentTarget 
   setUser({...user, [name]:value})
 }
 
-
-//  const { register, handleSubmit, watch, formState: { errors } } = useForm();
-  const onSubmit: SubmitHandler<User> = async (data) => {
+const onSubmit: SubmitHandler<User> = async (data) => {
 
         axios.post(baseURL, data, {
   headers: {
@@ -103,28 +102,6 @@ const {name, value} = e.currentTarget
   console.error(error);
 });
 
-        // const response = await fetch(baseURL, {
-        //   method:'POST', 
-        //   mode: "cors",
-        //   headers : {
-        //     'Content-Type':'application/x-www-form-urlencoded'
-        //   },
-        //   body: new URLSearchParams(user).toString(),
-        //   })
-        //     .then((res)=> res.json())
-        //     .then((dataa)=> console.log('Success:', dataa))
-        //     .catch((err)=> console.log('Error:', err))
-
-              // console.log(user)
-    //     const dataa = await response.json()
-    //     if(!response.ok){
-    //       console.log(dataa.description)
-    //       return
-    //     }
-    //     console.log(dataa)
-    // }catch(err){
-    //   console.log(err)
-    // }
         
     }
   return (
@@ -454,6 +431,7 @@ const {name, value} = e.currentTarget
       <p className='m-auto my-0 p-0 text-slate-400 leading-relaxed font-bold tracking tracking-wide '>cerrar</p>
     </div>
 </div>
+<Upload/>
 <button
 type="submit"
 className='transition duration-100
