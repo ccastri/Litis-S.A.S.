@@ -3,7 +3,7 @@ import '../globals.css'
 
 // import { Cities, Departments } from 'UploadFiles'
 import axios from 'axios';
-import React, { ChangeEvent, FormEvent, useState } from 'react'
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import Image from 'next/image';
 
 import Header from '../../../components/Header';
@@ -16,6 +16,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import Cookies from 'js-cookie';
 
 
 const baseURL = 'http://localhost:5000/api/v1/auth/login'
@@ -54,25 +55,30 @@ const RegisterForm = () => {
 
 const handleChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) =>{
 const {name, value} = e.currentTarget 
-  setUser({...user, [name]:value})
+setUser({...user, [name]:value})
 }
+const jwt_token = Cookies.get('jwt_token')
+useEffect(() => {
+}, [jwt_token])
 
 const onSubmit: SubmitHandler<Login> = async (data) => {
-  console.log(data)
-        axios.post(baseURL, data, {
-  headers: {
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
-  }
-  // withCredentials: true,
-}).then((response:any) => {
-  console.log(response.data);
-}).catch((error:any) => {
-  console.error(error);
-});
-
-        
+  const jwtToken = Cookies.get('jwt_token')
+  console.log(jwtToken)
+  axios.post(baseURL, data, {
+    // withCredentials: true,
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      Autorization:`Bearer ${jwtToken}`
     }
+  }).then((response:any) => {
+    console.log(response.data);
+  }).catch((error:any) => {
+    console.error(error);
+  });
+  
+  
+}
   return (
     <>
     {/*//! <Header/> */}
