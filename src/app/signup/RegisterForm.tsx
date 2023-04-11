@@ -95,7 +95,8 @@ const onSubmit: SubmitHandler<User> = async (data) => {
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded',
     'Access-Control-Allow-Origin': '*',
-  }
+  },
+   withCredentials: true //
 }).then((response:any) => {
   console.log(response.data);
 }).catch((error:any) => {
