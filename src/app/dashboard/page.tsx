@@ -3,20 +3,28 @@ import {useState, useEffect} from 'react'
 import '../globals.css'
 import axios from 'axios';
 import { User } from '@/app/signup/RegisterForm';
-
 import Cookies from 'js-cookie';
-
 import jwt from 'jsonwebtoken';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 
 const baseURL= 'http://localhost:5000/api/v1/auth/dashboard/profile/72'
 // const jwtToken = Cookies.get('jwt_token');
 const SECRET_KEY= 'A26nku4vi9YK4PXz1wDOxR/9uvH1WU2t73rMg2dOGaY='
 
-const Profile = ({token}:any) => {
+const Profile = () => {
   // console.log(token)
   // const Profile = ({firstname}) => {
-    const [userIsAuth, setUserIsAuth] = useState("")
+    interface UserLogged {
+      username: string;
+      email: string
+
+    }
+    const [userIsAuth, setUserIsAuth] = useState<UserLogged>({
+      username:"",
+      email:""
+
+    })
     
     
     // const getUser= async (jwtToken: String) => {
@@ -45,11 +53,13 @@ const Profile = ({token}:any) => {
               //  const header = parts[0]
               //  const payload = parts[1]
               //  console.log(payload)
+              setUserIsAuth(user)
               //  const payloadString = JSON.stringify(payload);
                console.log(stringToken)
             const decoded = jwt.decode(jwt_token); // Reemplaza 'TU_SECRETO' con el secreto real usado para firmar el token JWT
-            const verified = jwt.verify(jwt_token, SECRET_KEY); // Reemplaza 'TU_SECRETO' con el secreto real usado para firmar el token JWT
-            console.log(decoded);
+//  ! No funciona por ese error de mierda 'Error al decodificar el token JWT TypeError: Right-hand side of 'instanceof' is not an object'
+            // const verified = jwt.verify(jwt_token, SECRET_KEY); // Reemplaza 'TU_SECRETO' con el secreto real usado para firmar el token JWT
+            // console.log(decoded);
             // El objeto 'decoded' ahora contiene la información decodificada del token JWT, como los datos del usuario, la fecha de expiración, etc.
           } catch (error) {
             console.log('Error al decodificar el token JWT', error);
@@ -59,11 +69,7 @@ const Profile = ({token}:any) => {
           console.log('El token JWT no está presente');
           // Maneja el caso cuando el token JWT no está presente, por ejemplo, redirigiendo al usuario a la página de inicio de sesión
         }
-            // const decoded = jwt.verify(jwt_token, `'A26nku4vi9YK4PXz1wDOxR/9uvH1WU2t73rMg2dOGaY='`); // Reemplaza esto con tu secreto real usado para firmar el token JWT
             console.log(user);
-            // const token = response.headers['set-cookie'][0].split(';')[0].split('=')[1];
-            // setUserIsAuth(decoded);
-            // console.log(typeof userIsAuth)
             return user
     } catch (error) {
       console.log('Error al obtener el usuario', error);
@@ -88,10 +94,14 @@ const Profile = ({token}:any) => {
       
         return (
       
-    <div className='px-2 w-full h-screen z-999 justify-center text-black items-center '>
+    <div className='flex flex-row  w-full mt-[7rem] border-2  border-red-500 text-black '>
     
-
-      <h1>Hi! there</h1>
+         <AccountCircleIcon sx={{fontSize:'120px'}}/> 
+        <div className='h-30 flex-row mt-4'>
+        <h1 className='font-bold m-0'>Hi! there {userIsAuth.username}</h1>
+        <h3 className=''>{userIsAuth.email}</h3>
+          </div> 
+    
    
 
     </div>

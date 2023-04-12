@@ -9,24 +9,10 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  // const [isOpen, setIsOpen] = useState(false)
   return (
     <html lang="en">
-      {/*
-        <head /> will contain the components returned by the nearest parent
-        head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
-      */}
-      <head />
-
-      <body className='mb-0  text-white'>
-
-        {/* <main> */}
-        <div>
-      {/* <Sidebar/> */}
-          {children}
-          {/* </main> */}
-          </div>
-        </body>
+      <Sidebar/>
+      <body className='relative'>{children} </body>
     </html>
   )
 }

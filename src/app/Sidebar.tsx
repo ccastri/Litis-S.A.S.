@@ -6,7 +6,6 @@ import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact
 import { MenuIcon } from '@heroicons/react/outline';
 import {useRef, useState} from 'react'
 import Image from 'next/image';
-import Carrousel from 'components/Carrousel';
 import Link from 'next/link';
 const Sidebar = () => {
     const [isOpen, setIsOpen] = useState<boolean>(true)
@@ -15,8 +14,8 @@ const Sidebar = () => {
   return (
     // <div className='fixed'>
 
-    <div className={`  fixed  w-full top-0 h-28  text-white text-xl bg-[#675FFA]  `}>
-        <div className='   relative   flex flex-row w-full justify-between items-center  py-2  '>
+    <div className={`  fixed z-50  w-full top-0 h-28  text-white text-xl bg-[#675FFA]  `}>
+        <div className='      flex flex-row w-full justify-between items-center  py-2  '>
 
           {/* <Sidebar/> */}
           <MenuIcon 

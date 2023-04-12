@@ -8,9 +8,9 @@ module.exports = {
   ],
   theme: {
     extend: {
-      fontFamily: {
-        OpenSans: ["Open Sans", ...defaultTheme.fontFamily.sans],
-      },
+      // fontFamily: {
+      //   OpenSans: ["Open Sans", ...defaultTheme.fontFamily.sans],
+      // },
     },
 
   },

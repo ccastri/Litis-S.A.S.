@@ -34,6 +34,7 @@ const Carousel = () => {
     }
   return (
     <div className=' max-w-[1400px] mt-[7rem] relative h-[580px] w-full   group'>
+        <>
         <div className=' w-full h-full transition duration-500'>
             
                 <Image 
@@ -59,6 +60,7 @@ const Carousel = () => {
         className='absolute  hidden group-hover:block top-[50%] -translate-x-0 translate-y-[50%] right-5 text-2xl rounded-full p-2 bg-black/20 text-white' >
         <ChevronRightIcon sx={{fontSize:'30px'}} />
         </div>
+            </>
     </div>
   )
 }
