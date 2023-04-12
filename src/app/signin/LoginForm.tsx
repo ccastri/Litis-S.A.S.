@@ -4,6 +4,7 @@ import '../globals.css'
 // import { Cities, Departments } from 'UploadFiles'
 import axios from 'axios';
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
 import Header from '../../../components/Header';
@@ -19,6 +20,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Cookies from 'js-cookie';
 
 
+
 const baseURL = 'http://localhost:5000/api/v1/auth/login'
 
 export interface Login {
@@ -26,21 +28,21 @@ export interface Login {
         email:string,
         password:string,
     
-}
-
-const RegisterForm = () => {
-  // ! Button is pressed (twice) idk what's going on jaja
-  const [isPersonalDataClicked, setIsPersonalDataClicked] = useState<boolean>(true)
-  const [isSubmit, setIsSubmit] = useState<boolean>(false)
-  const [user, setUser] = useState<Login>({ 
-        email:"",
-        password:"",
-        // username:"",
-        // idCardNumber:"",
-        // dateOfExpedition: new Date(),
-        // dateOfBirth: new Date(),
-        // idCardFile: undefined,
-        // Address
+      }
+      
+      const RegisterForm = () => {
+        // ! Button is pressed (twice) idk what's going on jaja
+        const [isPersonalDataClicked, setIsPersonalDataClicked] = useState<boolean>(true)
+        const [isSubmit, setIsSubmit] = useState<boolean>(false)
+        const [user, setUser] = useState<Login>({ 
+          email:"",
+          password:"",
+          // username:"",
+          // idCardNumber:"",
+          // dateOfExpedition: new Date(),
+          // dateOfBirth: new Date(),
+          // idCardFile: undefined,
+          // Address
         // phone number
     })
 // ! UseForm and WTForm integration:
@@ -57,28 +59,30 @@ const handleChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectE
 const {name, value} = e.currentTarget 
 setUser({...user, [name]:value})
 }
-const jwt_token = Cookies.get('jwt_token')
-useEffect(() => {
-}, [jwt_token])
+// const jwt_token = Cookies.get('jwt_token')
+// useEffect(() => {
+// }, [jwt_token])
 
 const onSubmit: SubmitHandler<Login> = async (data) => {
   const jwtToken = Cookies.get('jwt_token')
   console.log(jwtToken)
   axios.post(baseURL, data, {
-    // withCredentials: true,
+    withCredentials: true,
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
-      Autorization:`Bearer ${jwtToken}`
+      Authorization:`Bearer ${jwtToken}`
     }
   }).then((response:any) => {
     console.log(response.data);
+    router.push('/dashboard')
   }).catch((error:any) => {
     console.error(error);
   });
   
   
 }
+const router = useRouter()
   return (
     <>
     {/*//! <Header/> */}
