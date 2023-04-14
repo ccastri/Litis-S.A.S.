@@ -18,11 +18,13 @@ const Sidebar = () => {
         <div className='      flex flex-row w-full justify-between items-center  py-2  '>
 
           {/* <Sidebar/> */}
+          <>
           <MenuIcon 
           onClick={()=> setIsOpen(!isOpen)}
           className={` z-10 h-10 mx-8 transition duration-100 transform hover:scale-125 hover:text-white`} />
+          </>
 {/* <> */}
-
+<>
           <Image
           src='/LOGO-LITIS-removebg.png'
           width={150}
@@ -33,6 +35,7 @@ const Sidebar = () => {
           object-fit='cover'
           alt=''/>
           {/* </> */}
+          </>
           
           </div>
     <div className={`fixed z-50 opacity-[85%] w-[55%] top-28 h-[100%]  ${isOpen && '-translate-x-full  bottom-0 absolute'}  rounded bg-blue-500`}>

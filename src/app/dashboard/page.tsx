@@ -6,6 +6,10 @@ import { User } from '@/app/signup/RegisterForm';
 import Cookies from 'js-cookie';
 import jwt from 'jsonwebtoken';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import EmailIcon from '@mui/icons-material/Email';
+import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import BeenhereIcon from '@mui/icons-material/Beenhere'; 
 
 
 const baseURL= 'http://localhost:5000/api/v1/auth/dashboard/profile/72'
@@ -18,14 +22,21 @@ const Profile = () => {
     interface UserLogged {
       username: string;
       email: string
+      phoneNumber: string
+      city: string
+      memberSince: string
 
     }
     const [userIsAuth, setUserIsAuth] = useState<UserLogged>({
       username:"",
-      email:""
+      email:"",
+      phoneNumber: "",
+      city: "",
+      memberSince: "",
+
 
     })
-    
+    const [userIsClicked, setUserIsClicked] = useState<Boolean>(false)
     
     // const getUser= async (jwtToken: String) => {
       useEffect(() => {
@@ -77,33 +88,50 @@ const Profile = () => {
       return null
     }
   };
-
-
     fetchUser();
-
-
-
 }, []);
 // Aquí, se define una función asíncrona fetchUser que realiza la solicitud a la API y maneja los errores. Luego se llama a esta función dentro de useEffect, que se ejecutará cuando cambie el valor de jwtToken. También se ha añadido la dependencia jwtToken para que useEffect se vuelva a ejecutar si cambia el token.
-
-
-
-
-
-
-      
         return (
-      
-    <div className='flex flex-row  w-full mt-[7rem] border-2  border-red-500 text-black '>
-    
-         <AccountCircleIcon sx={{fontSize:'120px'}}/> 
-        <div className='h-30 flex-row mt-4'>
-        <h1 className='font-bold m-0'>Hi! there {userIsAuth.username}</h1>
-        <h3 className=''>{userIsAuth.email}</h3>
-          </div> 
-    
-   
+    <div className='mt-[7rem] w-full -z-50 opacity-50 '>
+    <div className='flex animate-bounce  h-48 w-full z-10  border-4 bg-blue-400 border-b-black text-gray-900  opacity-100 '>
 
+      <AccountCircleIcon sx={{fontSize:'120px'}}/> 
+      <div className='flex-row '>
+        <h1 className='font-bold mt-4'>{userIsAuth.username}</h1>
+          <div className='h-30 flex flex-column mt-1  space-x-2'>
+            <h3 className=''><EmailIcon sx={{fontSize:'20px'}}/>{userIsAuth.email} /</h3>
+            <h3 className=''><PhoneIphoneIcon sx={{fontSize:'20px'}}/>{userIsAuth.phoneNumber} /</h3>
+            <h3 className=''><LocationOnIcon sx={{fontSize:'20px'}}/>{userIsAuth.city} /</h3>
+            <h3 className='mx-0'><BeenhereIcon sx={{fontSize:'20px'}}/>{userIsAuth.memberSince}</h3>
+          </div> 
+      </div>
+    </div>
+    <div className='flex  h-40 w-full z-10  border-2 bg-blue-400 backdrop-blur-xl border-b-slate-500 text-gray-900 transition transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:transform-none  opacity-100 relative'>
+      <span className=""></span>
+      <AccountCircleIcon sx={{fontSize:'120px'}}/> 
+      <div className='flex-row'>
+        <h1 className='font-bold mt-4'>{userIsAuth.username}</h1>
+          <div className='h-30 flex flex-column mt-1  space-x-2'>
+            <h3 className=''><EmailIcon sx={{fontSize:'20px'}}/>{userIsAuth.email} /</h3>
+            <h3 className=''><PhoneIphoneIcon sx={{fontSize:'20px'}}/>{userIsAuth.phoneNumber} /</h3>
+            <h3 className=''><LocationOnIcon sx={{fontSize:'20px'}}/>{userIsAuth.city} /</h3>
+            <h3 className='mx-0'><BeenhereIcon sx={{fontSize:'20px'}}/>{userIsAuth.memberSince}</h3>
+          </div> 
+      </div>
+    </div>
+    <div className='flex  h-40 w-full bg-slate-500- border-2   text-black  hover:transition-all duration-200 hover:bg-blue-500 '>
+      <AccountCircleIcon className='motion-safe:animate-spin mr-3' sx={{fontSize:'120px'}}/> 
+      <div className='flex-row'>
+        <h1 className='font-bold mt-4'>{userIsAuth.username}</h1>
+          <div className='h-30 flex flex-column mt-1  space-x-2'>
+            <h3 className=''><EmailIcon sx={{fontSize:'20px'}}/>{userIsAuth.email} /</h3>
+            <h3 className=''><PhoneIphoneIcon sx={{fontSize:'20px'}}/>{userIsAuth.phoneNumber} /</h3>
+            <h3 className=''><LocationOnIcon sx={{fontSize:'20px'}}/>{userIsAuth.city} /</h3>
+            <h3 className='mx-0'><BeenhereIcon sx={{fontSize:'20px'}}/>{userIsAuth.memberSince}</h3>
+          </div> 
+      </div>
+    </div>
+    
     </div>
   )
 }
