@@ -1,4 +1,4 @@
-import { BriefcaseIcon, CurrencyDollarIcon, ShieldCheckIcon, BadgeCheckIcon} from "@heroicons/react/outline"
+
 import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import ElderlyIcon from '@mui/icons-material/Elderly';

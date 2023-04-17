@@ -1,9 +1,10 @@
-import Admin from 'components/Admin';
-import Carousel from './Carousel';
+import Admin from './components/Admin';
+import dynamic from 'next/dynamic';
+import Carousel from './components/Carousel';
 // import RootLayout from '@/app/layout'
 import './globals.css';
 
-export default function Home() {
+const Home =() => {
   return (
     <div className='relative text-white'>
       <Carousel />
@@ -11,3 +12,4 @@ export default function Home() {
     </div>
 	);
 }
+export default Home

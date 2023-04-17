@@ -7,8 +7,8 @@ import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
-import Header from '../../../components/Header';
-import { Upload } from '../../../components/UploadFiles';
+import Header from '../components/Header';
+import { Upload } from '../components/UploadFiles';
 import { PersonalDataForm } from 'Personal-data';
 
 import DatePicker from "react-datepicker";

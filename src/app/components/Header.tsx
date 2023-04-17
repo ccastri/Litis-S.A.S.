@@ -1,9 +1,10 @@
 'use client';
-import { MenuIcon } from '@heroicons/react/outline'
+// import { MenuIcon } from '@heroicons/react/outline'
+
 import Image from 'next/image'
 import {useState} from 'react'
 import { useDispatch } from 'react-redux';
-import Sidebar from '../src/app/Sidebar'
+import Sidebar from '../Sidebar'
 
 const Header = () => {
 
@@ -20,9 +21,9 @@ const Header = () => {
           object-fit='cover'
           alt=''/>
           {/* <Sidebar/> */}
-          <MenuIcon 
-          // onClick={}
-          className={`h-6 mx-8 transition duration-100 transform hover:scale-125 hover:text-white`} />
+          {/* <MenuIcon  */}
+          {/* // onClick={}
+          className={`h-6 mx-8 transition duration-100 transform hover:scale-125 hover:text-white`} /> */}
       </div>
   )
 }

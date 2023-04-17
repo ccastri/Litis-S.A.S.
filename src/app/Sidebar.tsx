@@ -5,10 +5,11 @@ import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import LoginIcon from '@mui/icons-material/Login';
-import { MenuIcon } from '@heroicons/react/outline';
+// import { MenuIcon } from '@heroicons/react/outline';
 import {useEffect, useRef, useState} from 'react'
 import Image from 'next/image';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 const Sidebar = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false)
 
@@ -63,7 +64,7 @@ const Sidebar = () => {
           width={150}
           height={150}
           className='mr-4 transition duration-100
-          transform hover:scale-125 
+          transform hover:scale-125  bg-white
           '
           object-fit='cover'
           alt=''/>
@@ -72,14 +73,14 @@ const Sidebar = () => {
           
           
           </div>
-    <div className={`fixed z-50 opacity-[85%] w-[55%] top-28 h-[100%] transform ${isOpen ?  'translate-x-all duration-300 ': '-translate-x-full duration-300  bottom-0 '}  rounded bg-blue-500`}>
+    <div className={` z-50 opacity-[85%] w-[55%] mt-2 h-screen transform ${isOpen ?  'translate-x-all duration-300 ': '-translate-x-full duration-300  bottom-0 '}  rounded bg-blue-500`}>
         <h1 className='text-center text-3xl py-4 '>MENU</h1>
         {/* <Link ></Link> */}
         <div 
         
-        className='  rounded-md hover:opacity-100   text-justify justify-between  space-y-4 py-6'>
+        className='  rounded-md hover:opacity-100   text-justify justify-between my-2 space-y-4 py-2'>
             <Link href='/' onClick={()=>setIsOpen(!isOpen)}>
-            <div className='flex space-x-4 items-center  m-auto w-full hover:text-2xl hover:duration-200 px-4 py-2 hover:bg-slate-600'>
+            <div className='flex space-x-4 items-center  w-full hover:text-2xl hover:duration-200 px-4 py-2 hover:bg-slate-600'>
             <HomeIcon sx={{fontSize:'30px'}} className=''/>
             <h2 className=''>Inicio</h2>
             </div>
@@ -90,19 +91,19 @@ const Sidebar = () => {
             </div>
             <div className='cursor-pointer'>
             <Link href='/signup' onClick={()=>setIsOpen(!isOpen)}
-            className='flex space-x-4 items-center  cursor-pointer px-4 hover:transition hover:duration-500 hover:bg-slate-600 hover:text-3xl '
+            className='flex space-x-4 items-center py-2  cursor-pointer px-4 hover:transition hover:duration-500 hover:bg-slate-600 hover:text-3xl '
             >
             <GroupAddIcon sx={{fontSize:'30px'}} className=''/>
             <h2 className=''>Afiliate Ya</h2>
             </Link>
             </div>
-            <div className='w-full text-center flex space-x-2 items-center hover:text-3xl px-4 hover:bg-slate-600  '>
+            <div className='w-full text-center flex space-x-2 items-center hover:text-3xl px-4 py-2 hover:bg-slate-600  '>
             <ConnectWithoutContactIcon sx={{fontSize:'30px'}} className=''/>
             <h2 className=''>Contactanos</h2>
             </div>
             <div className='coursor-pointer'>
                <Link href='/dashboard' onClick={()=>setIsOpen(!isOpen)}
-               className='w-full text-center flex space-x-2 items-center hover:text-3xl px-4 hover:bg-slate-600  '>
+               className='w-full text-center flex space-x-2 items-center hover:text-3xl px-4 py-2 hover:bg-slate-600  '>
             <AssignmentIndIcon sx={{fontSize:'30px'}} className=''/>
             <h2 className=''>Mis usuarios</h2>
              </Link>
@@ -112,7 +113,7 @@ const Sidebar = () => {
 
         <div className='cursor-pointer'>
           <Link href='/signin'
-        className='w-full mt-[350px]  pl-4 text-center flex space-x-2  hover:text-3xl bottom-0 items-center hover:bg-slate-600  '>
+        className='w-full mt-12 z-50 pl-4 text-center flex space-x-2  hover:text-3xl bottom-0 items-center hover:bg-slate-600  '>
             <LoginIcon sx={{fontSize:'30px'}} className=''/>
 
             <h2 className=''>Inicio de sesion</h2>

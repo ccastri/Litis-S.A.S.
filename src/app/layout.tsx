@@ -1,4 +1,4 @@
-import Header from 'components/Header'
+import Header from '@/app/components/Header'
 // import Sidebar from '@/app/Sidebar'
 import './globals.css'
 import Sidebar from './Sidebar'
@@ -11,8 +11,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <body className='relative'>
       <Sidebar/>
-      <body className='relative'>{children} </body>
+        {children} </body>
     </html>
   )
 }
