@@ -36,7 +36,7 @@ const Sidebar = () => {
   return (
     // <div className='fixed'>
 // !Animated Icon
-    <div className={`  fixed z-50  w-full top-0 h-28  text-white text-xl bg-[#675FFA]  ${ isScrolled ? 'opacity-70' : 'opacity-100'} `}>
+    <div className={`  fixed z-50  w-full top-0 h-28  text-white text-xl bg-[#675FFA]  ${ isScrolled ? 'opacity-60' : 'opacity-100'} `}>
         <div className='      flex flex-row w-full justify-between items-center  py-2  '>
 
           {/* <Sidebar/> */}
@@ -64,7 +64,7 @@ const Sidebar = () => {
           width={150}
           height={150}
           className='mr-4 transition duration-100
-          transform hover:scale-125  bg-white
+          transform hover:scale-125  bg-white rounded-md
           '
           object-fit='cover'
           alt=''/>
