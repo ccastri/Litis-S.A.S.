@@ -1,7 +1,7 @@
 import Admin from './components/Admin';
 import dynamic from 'next/dynamic';
 import Carousel from './components/Carousel';
-// import RootLayout from '@/app/layout'
+
 import './globals.css';
 
 const Home =() => {

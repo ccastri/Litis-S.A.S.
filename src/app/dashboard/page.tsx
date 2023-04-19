@@ -25,71 +25,68 @@ const Profile = () => {
       phoneNumber: string
       city: string
       memberSince: string
+      isAuth: boolean;
 
     }
-    const [userIsAuth, setUserIsAuth] = useState<UserLogged>({
+    // ! el selector viene a camellar aqui!!!
+    const [userFromAuthSaga, setUserFromAuthSaga] = useState<UserLogged>({
       username:"",
       email:"",
       phoneNumber: "",
       city: "",
       memberSince: "",
-
+      isAuth: false
 
     })
     const [userIsClicked, setUserIsClicked] = useState<Boolean>(false)
+
     
     // const getUser= async (jwtToken: String) => {
-      useEffect(() => {
-        const jwt_token = Cookies.get('jwt_token');
-        const fetchUser = async () => {
-          try {
-            // console.log(jwt_token)
+      // useEffect(() => {
+      //   const jwt_token = Cookies.get('jwt_token');
+      //   const fetchUser = async () => {
+      //     try {
+      //       // console.log(jwt_token)
             
-            const response = await axios.get(baseURL,
-              { 
-                withCredentials: true, 
-                headers: {
-                  Authorization: `Bearer ${jwt_token}`,
-                  'Content-Type': 'application/json',
-                  'Access-Control-Allow-Origin': '*',
-                },  
-              });
-              const user = response.data;
-              if (jwt_token) {
-                // Decodifica el token JWT
-                try {
-              //  const header, payload, signature = jwt_token.split('.') 
-              //  console.log(jwt_token);
-               const stringToken = JSON.stringify(jwt_token)
-              //  const header = parts[0]
-              //  const payload = parts[1]
-              //  console.log(payload)
-              setUserIsAuth(user)
-              //  const payloadString = JSON.stringify(payload);
-               console.log(stringToken)
-            const decoded = jwt.decode(jwt_token); // Reemplaza 'TU_SECRETO' con el secreto real usado para firmar el token JWT
+      //       const response = await axios.get(baseURL,
+      //         { 
+      //           withCredentials: true, 
+      //           headers: {
+      //             Authorization: `Bearer ${jwt_token}`,
+      //             'Content-Type': 'application/json',
+      //             'Access-Control-Allow-Origin': '*',
+      //           },  
+      //         });
+      //         const user = response.data;
+      //         if (jwt_token) {
+      //           // Decodifica el token JWT
+      //           try {
+      //          const stringToken = JSON.stringify(jwt_token)
+      //         setUserFromAuthSaga(user)
+      //          console.log(stringToken)
+      //       const decoded = jwt.decode(jwt_token); // Reemplaza 'TU_SECRETO' con el secreto real usado para firmar el token JWT
 //  ! No funciona por ese error de mierda 'Error al decodificar el token JWT TypeError: Right-hand side of 'instanceof' is not an object'
             // const verified = jwt.verify(jwt_token, SECRET_KEY); // Reemplaza 'TU_SECRETO' con el secreto real usado para firmar el token JWT
             // console.log(decoded);
             // El objeto 'decoded' ahora contiene la información decodificada del token JWT, como los datos del usuario, la fecha de expiración, etc.
-          } catch (error) {
-            console.log('Error al decodificar el token JWT', error);
+          // } catch (error) {
+            // console.log('Error al decodificar el token JWT', error);
             // Maneja el error de alguna manera, como mostrar un mensaje de error al usuario
-          }
-        } else {
-          console.log('El token JWT no está presente');
+        //   }
+        // } else {
+        //   console.log('El token JWT no está presente');
           // Maneja el caso cuando el token JWT no está presente, por ejemplo, redirigiendo al usuario a la página de inicio de sesión
-        }
-            console.log(user);
-            return user
-    } catch (error) {
-      console.log('Error al obtener el usuario', error);
+        // }
+            // console.log(user);
+    //         return user
+    // } catch (error) {
+    //   console.log('Error al obtener el usuario', error);
       // puedes manejar el error de alguna manera, como lanzar una alerta o retornar un valor por defecto
-      return null
-    }
-  };
-    fetchUser();
-}, []);
+//       return null
+//     }
+//   };
+//     fetchUser();
+// }, []);
 // Aquí, se define una función asíncrona fetchUser que realiza la solicitud a la API y maneja los errores. Luego se llama a esta función dentro de useEffect, que se ejecutará cuando cambie el valor de jwtToken. También se ha añadido la dependencia jwtToken para que useEffect se vuelva a ejecutar si cambia el token.
         return (
     <div className='mt-[7rem] w-full -z-50 opacity-50 '>
@@ -97,12 +94,12 @@ const Profile = () => {
 
       <AccountCircleIcon sx={{fontSize:'120px'}}/> 
       <div className='flex-row '>
-        <h1 className='font-bold mt-4'>{userIsAuth.username}</h1>
+        <h1 className='font-bold mt-4'>{userFromAuthSaga.username}</h1>
           <div className='h-30 flex flex-column mt-1  space-x-2'>
-            <h3 className=''><EmailIcon sx={{fontSize:'20px'}}/>{userIsAuth.email} /</h3>
-            <h3 className=''><PhoneIphoneIcon sx={{fontSize:'20px'}}/>{userIsAuth.phoneNumber} /</h3>
-            <h3 className=''><LocationOnIcon sx={{fontSize:'20px'}}/>{userIsAuth.city} /</h3>
-            <h3 className='mx-0'><BeenhereIcon sx={{fontSize:'20px'}}/>{userIsAuth.memberSince}</h3>
+            <h3 className=''><EmailIcon sx={{fontSize:'20px'}}/>{userFromAuthSaga.email} /</h3>
+            <h3 className=''><PhoneIphoneIcon sx={{fontSize:'20px'}}/>{userFromAuthSaga.phoneNumber} /</h3>
+            <h3 className=''><LocationOnIcon sx={{fontSize:'20px'}}/>{userFromAuthSaga.city} /</h3>
+            <h3 className='mx-0'><BeenhereIcon sx={{fontSize:'20px'}}/>{userFromAuthSaga.memberSince}</h3>
           </div> 
       </div>
     </div>
@@ -110,24 +107,24 @@ const Profile = () => {
       <span className=""></span>
       <AccountCircleIcon sx={{fontSize:'120px'}}/> 
       <div className='flex-row'>
-        <h1 className='font-bold mt-4'>{userIsAuth.username}</h1>
+        <h1 className='font-bold mt-4'>{userFromAuthSaga.username}</h1>
           <div className='h-30 flex flex-column mt-1  space-x-2'>
-            <h3 className=''><EmailIcon sx={{fontSize:'20px'}}/>{userIsAuth.email} /</h3>
-            <h3 className=''><PhoneIphoneIcon sx={{fontSize:'20px'}}/>{userIsAuth.phoneNumber} /</h3>
-            <h3 className=''><LocationOnIcon sx={{fontSize:'20px'}}/>{userIsAuth.city} /</h3>
-            <h3 className='mx-0'><BeenhereIcon sx={{fontSize:'20px'}}/>{userIsAuth.memberSince}</h3>
+            <h3 className=''><EmailIcon sx={{fontSize:'20px'}}/>{userFromAuthSaga.email} /</h3>
+            <h3 className=''><PhoneIphoneIcon sx={{fontSize:'20px'}}/>{userFromAuthSaga.phoneNumber} /</h3>
+            <h3 className=''><LocationOnIcon sx={{fontSize:'20px'}}/>{userFromAuthSaga.city} /</h3>
+            <h3 className='mx-0'><BeenhereIcon sx={{fontSize:'20px'}}/>{userFromAuthSaga.memberSince}</h3>
           </div> 
       </div>
     </div>
     <div className='flex  h-40 w-full bg-slate-500- border-2   text-black  hover:transition-all duration-200 hover:bg-blue-500 '>
       <AccountCircleIcon className='motion-safe:animate-spin mr-3' sx={{fontSize:'120px'}}/> 
       <div className='flex-row'>
-        <h1 className='font-bold mt-4'>{userIsAuth.username}</h1>
+        <h1 className='font-bold mt-4'>{userFromAuthSaga.username}</h1>
           <div className='h-30 flex flex-column mt-1  space-x-2'>
-            <h3 className=''><EmailIcon sx={{fontSize:'20px'}}/>{userIsAuth.email} /</h3>
-            <h3 className=''><PhoneIphoneIcon sx={{fontSize:'20px'}}/>{userIsAuth.phoneNumber} /</h3>
-            <h3 className=''><LocationOnIcon sx={{fontSize:'20px'}}/>{userIsAuth.city} /</h3>
-            <h3 className='mx-0'><BeenhereIcon sx={{fontSize:'20px'}}/>{userIsAuth.memberSince}</h3>
+            <h3 className=''><EmailIcon sx={{fontSize:'20px'}}/>{userFromAuthSaga.email} /</h3>
+            <h3 className=''><PhoneIphoneIcon sx={{fontSize:'20px'}}/>{userFromAuthSaga.phoneNumber} /</h3>
+            <h3 className=''><LocationOnIcon sx={{fontSize:'20px'}}/>{userFromAuthSaga.city} /</h3>
+            <h3 className='mx-0'><BeenhereIcon sx={{fontSize:'20px'}}/>{userFromAuthSaga.memberSince}</h3>
           </div> 
       </div>
     </div>

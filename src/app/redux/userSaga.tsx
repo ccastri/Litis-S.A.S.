@@ -23,7 +23,7 @@ export interface User{
 }
 // Define a function to fetch users from the API
 async function fetchUsersApi() {
-  const response = await fetch('http://localhost:5000.com/users');
+  const response = await fetch('http://localhost:5000/users');
   const data = await response.json();
   return data;
 }
@@ -42,6 +42,7 @@ function* fetchUsersSaga(): SagaIterator<User[]>  {
 }
 
 // Watch for the fetchUsersStart action and run the fetchUsersSaga
-export function* watchFetchUsers(): SagaIterator<void> {
+export function* watchFetchUsers(): SagaIterator<User[]> {
   yield takeLatest(fetchUsersStart.type, fetchUsersSaga);
+  return []
 }
